@@ -1,0 +1,108 @@
+/* 1. Navbar Container */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px; 
+  height: 100vh;
+  background-color: white;
+  padding: .5rem;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  padding-top: 105px;
+
+  /* Flexbox Setup */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2. Navigation List */
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 17px; /* Add horizontal padding to avoid overlap with scrollbar */
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+/* 3. Navigation Items */
+nav li {
+  margin: 0;
+  display: flex;
+  padding: 5px 0;
+}
+
+/* 4. Navigation Links */
+.nav-button {
+  display: block;
+  width: calc(100% - 16px); /* Slightly reduced width to fit within padding */
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+/* 5. Hover State */
+.nav-button:hover {
+  background-color: transparent;
+  border-color: #bf56a0;
+  color: #9a1675;
+  box-shadow: 0 0 0 2px #bf56a0;
+}
+
+/* 6. Active State */
+.nav-button.active {
+  background-color: #d8b2ed;
+}
+
+nav ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+nav ul::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+nav ul::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+nav ul::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.divider {
+  height: 1px;
+  background-color: white; /* Divider color */
+  width: 90%; /* Width of the divider line */
+  margin: 0 auto 10px; /* Center and add space below */
+}
+
+.settings-section {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.settings-section .mat-divider{
+  color: gray;
+}
+
+.mat-mdc-mini-fab:not(.mdc-fab--extended) {
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.mat-mdc-mini-fab {
+  box-shadow: none;
+  background-color: white;
+}
+

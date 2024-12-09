@@ -1,0 +1,42 @@
+<nav>
+  <div class="settings-section">
+      <button mat-mini-fab aria-label="Search button" (click)="toggleInput()">
+        <mat-icon>search</mat-icon>
+      </button>  
+
+      <h2 *ngIf="!showInput" class="table-name">Table Name</h2>
+
+      <mat-form-field appearance="outline" *ngIf="showInput" class="transition-input">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+  </div>
+
+  <ul>
+    <li *ngFor="let item of navItems">
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-button"
+      >
+        {{ item.label }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="settings-section">
+    <mat-divider> </mat-divider>
+      <button mat-mini-fab aria-label="Settings button">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <div class="toggle-container">
+        <span class="toggle-label">Progress</span>
+        <label class="custom-toggle">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>      
+  </div>
+</nav>

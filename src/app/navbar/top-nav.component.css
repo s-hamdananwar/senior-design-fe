@@ -1,0 +1,33 @@
+mat-form-field .transition-input {
+    width: 100%;
+    max-width: 300px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    margin: 5px;
+}
+
+mat-form-field.transition-input.ng-enter {
+    opacity: 1;
+}
+
+mat-form-field.transition-input.ng-leave {
+    opacity: 0;
+}
+
+:host ::ng-deep .transition-input input {
+    height: 29px;
+    margin-top: 20px;
+    border-radius: px;
+    width: 90%;
+}
+
+:host ::ng-deep mat-form-field {
+    position: relative;
+}
+
+.table-name {
+    font-size: 24px;
+    margin: 10px;
+    color: black;
+}

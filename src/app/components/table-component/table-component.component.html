@@ -1,0 +1,75 @@
+<div class="table-container">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let key of getKeys(data[0]); let i = index"
+          [class.fixed-column]="isInsertColumn(i)"
+          [style.zIndex]="isInsertColumn(i) ? 3 : 2"
+        >
+          {{ formatHeader(key) }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; let rowIndex = index">
+        <td
+          #tableCell
+          *ngFor="let key of getKeys(item); let i = index"
+          [class.fixed-column]="isInsertColumn(i)"
+        >
+          <ng-container *ngIf="isInsertColumn(i); else displayCell">
+            <div class="input-container">
+              <input
+                [(ngModel)]="data[rowIndex][key]"
+                [name]="'input_' + rowIndex + '_' + i"
+                (ngModelChange)="onValueChange(rowIndex, key, $event)"
+                (blur)="onInputBlur(rowIndex)"
+                class="fixed-input"
+                [ngClass]="{
+                  'invalid-input':
+                    validationState[rowIndex] && !validationState[rowIndex][key]
+                }"
+              />
+              <span
+                *ngIf="
+                  validationState[rowIndex] &&
+                  validationState[rowIndex][key] === true
+                "
+                class="checkmark"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="green"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M13.485 1.929a.75.75 0 010 1.06L6.56 10.915l-3.554-3.554a.75.75 0 00-1.06 1.06l4 4a.75.75 0 001.06 0l7-7a.75.75 0 000-1.06z"
+                  />
+                </svg>
+              </span>
+              <span
+                *ngIf="
+                  validationState[rowIndex] &&
+                  validationState[rowIndex][key] !== true
+                "
+                class="tooltip-container"
+              >
+                <mat-icon class="red-icon"> help_outline </mat-icon>
+                <span class="custom-tooltip">
+                  {{ validationState[rowIndex][key] }}
+                </span>
+              </span>
+            </div>
+          </ng-container>
+          <ng-template #displayCell>
+            {{ item[key] }}
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

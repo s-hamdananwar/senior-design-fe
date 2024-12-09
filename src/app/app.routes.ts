@@ -1,3 +1,9 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
-export const routes: Routes = [];
+import { TableComponent } from "./components/table-component/table-component.component";
+
+export const routes: Routes = [
+  { path: "table/:dataSet", component: TableComponent },
+
+  // Add more routes here
+];

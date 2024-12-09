@@ -1,0 +1,30 @@
+.top-header {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
+  justify-content: start; /* Keeps items on the left side */
+  background-color: #f8f9fa; /* Light background color */
+  padding: 5px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-logo {
+  height: 80px; /* Makes the logo bigger */
+  margin-right: 15px; /* Adds space between logo and text */
+}
+
+header {
+  font-size: 2rem; /* Increases the text size */
+  font-weight: bold; 
+  color: #333; 
+  flex: 1; 
+  text-align: center;
+}
+
+.mini-fab-container {
+  margin-left: auto;
+  padding: 5px 25px;
+}
