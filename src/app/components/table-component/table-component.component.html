@@ -6,42 +6,34 @@
         class="custom-toggle-button"
         type="button"
         [class.active]="selectedStatus === 1"
-        (click)="selectedStatus = 1; onToggleChange(selectedStatus)"
+        (click)="onToggleChange(1)"
       >
         Valid
       </button>
-
       <!-- Invalid Data Button -->
       <button
         class="custom-toggle-button"
         type="button"
         [class.active]="selectedStatus === 0"
-        (click)="selectedStatus = 0; onToggleChange(selectedStatus)"
+        (click)="onToggleChange(0)"
       >
         Invalid
       </button>
     </div>
   </section>
+
   <table class="styled-table">
     <thead>
       <tr>
-        <th
-          *ngFor="let key of getKeys(data[0]); let i = index"
-          [class.fixed-column]="isInsertColumn(i)"
-          [style.zIndex]="isInsertColumn(i) ? 3 : 2"
-        >
+        <th *ngFor="let key of getKeys(data[0]); let i = index" [class.fixed-column]="i === 0">
           {{ formatHeader(key) }}
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data; let rowIndex = index">
-        <td
-          #tableCell
-          *ngFor="let key of getKeys(item); let i = index"
-          [class.fixed-column]="isInsertColumn(i)"
-        >
-          <ng-container *ngIf="isInsertColumn(i); else displayCell">
+      <tr *ngFor="let item of displayedData; let rowIndex = index">
+        <td *ngFor="let key of getKeys(item); let i = index" [class.fixed-column]="i === 0">
+          <ng-container *ngIf="i === 0; else displayCell">
             <div class="input-container">
               <input
                 [(ngModel)]="data[rowIndex][key]"
@@ -50,15 +42,11 @@
                 (blur)="onInputBlur(rowIndex)"
                 class="fixed-input"
                 [ngClass]="{
-                  'invalid-input':
-                    validationState[rowIndex] && !validationState[rowIndex][key]
+                  'invalid-input': validationState[rowIndex] && !validationState[rowIndex][key]
                 }"
               />
               <span
-                *ngIf="
-                  validationState[rowIndex] &&
-                  validationState[rowIndex][key] === true
-                "
+                *ngIf="validationState[rowIndex] && validationState[rowIndex][key] === true"
                 class="checkmark"
               >
                 <svg
@@ -75,24 +63,40 @@
                 </svg>
               </span>
               <span
-                *ngIf="
-                  validationState[rowIndex] &&
-                  validationState[rowIndex][key] !== true
-                "
+                *ngIf="validationState[rowIndex] && validationState[rowIndex][key] !== true"
                 class="tooltip-container"
               >
-                <mat-icon class="red-icon"> help_outline </mat-icon>
+                <mat-icon class="red-icon">help_outline</mat-icon>
                 <span class="custom-tooltip">
                   {{ validationState[rowIndex][key] }}
                 </span>
               </span>
             </div>
           </ng-container>
-          <ng-template #displayCell>
-            {{ item[key] }}
-          </ng-template>
+          <ng-template #displayCell>{{ item[key] }}</ng-template>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="pagination-container centered">
+  <label for="itemsPerPage">Items per page:</label>
+  <select
+    id="itemsPerPage"
+    [value]="pageSize"
+    (change)="onPageSizeChange($event)"
+  >
+    <option *ngFor="let option of pageSizeOptions" [value]="option">
+      {{ option }}
+    </option>
+  </select>
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+    hidePageSize
+  ></mat-paginator>
 </div>

@@ -82,6 +82,7 @@ table td.fixed-column {
   border-color: #007bff;
   background-color: #e9f7fe;
 }
+
 .input-container {
   width: 100%;
   min-width: 250px;
@@ -135,9 +136,11 @@ table td.fixed-column {
   visibility: visible;
   opacity: 1;
 }
+
 .red-icon {
   color: red;
 }
+
 .toggle-container {
   display: flex;
   justify-content: center;
@@ -146,14 +149,12 @@ table td.fixed-column {
   margin-top: 8px;
 }
 
-/* Base styles for the custom toggle group */
 .custom-toggle-group {
   display: flex;
 }
 
-/* Base button styles */
 .custom-toggle-button {
-  margin: 0 5px; /* Space between buttons */
+  margin: 0 5px;
   padding: 10px 10px;
   height: 40px;
   min-width: 80px;
@@ -164,20 +165,38 @@ table td.fixed-column {
   transition: background-color 0.3s;
 }
 
-/* Hover effect */
 .custom-toggle-button:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
+  background-color: #e0e0e0;
   color: #000;
 }
 
-/* Active (Selected) state styling */
 .custom-toggle-button.active {
-  background-color: #1976d2; /* Primary color */
+  background-color: #1976d2;
   color: white;
 }
 
-/* Optional: If you want a stronger hover effect on non-active */
 .custom-toggle-button:not(.active):hover {
   background-color: #1565c0;
   color: white;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+}
+
+#itemsPerPage {
+  width: 45px;
 }
