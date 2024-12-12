@@ -1,4 +1,27 @@
 <div class="table-container">
+  <section class="toggle-container">
+    <div class="custom-toggle-group">
+      <!-- Valid Data Button -->
+      <button
+        class="custom-toggle-button"
+        type="button"
+        [class.active]="selectedStatus === 1"
+        (click)="selectedStatus = 1; onToggleChange(selectedStatus)"
+      >
+        Valid
+      </button>
+
+      <!-- Invalid Data Button -->
+      <button
+        class="custom-toggle-button"
+        type="button"
+        [class.active]="selectedStatus === 0"
+        (click)="selectedStatus = 0; onToggleChange(selectedStatus)"
+      >
+        Invalid
+      </button>
+    </div>
+  </section>
   <table class="styled-table">
     <thead>
       <tr>
@@ -12,7 +35,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data; let rowIndex = index">
+      <tr *ngFor="let item of displayedData; let rowIndex = index">
         <td
           #tableCell
           *ngFor="let key of getKeys(item); let i = index"
@@ -73,3 +96,26 @@
     </tbody>
   </table>
 </div>
+
+<div class="pagination-container centered">
+  <label for="itemsPerPage">Items per page:</label>
+  <select
+    id="itemsPerPage"
+    [value]="pageSize"
+    (change)="onPageSizeChange($event)"
+  >
+    <option *ngFor="let option of pageSizeOptions" [value]="option">
+      {{ option }}
+    </option>
+  </select>
+
+  <mat-paginator
+  [length]="totalItems"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[]"
+  showFirstLastButtons
+  aria-label="Pagination"
+  (page)="onPageChange($event)"
+  hidePageSize
+>
+</mat-paginator>

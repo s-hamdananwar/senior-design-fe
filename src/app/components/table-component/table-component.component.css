@@ -138,3 +138,68 @@ table td.fixed-column {
 .red-icon {
   color: red;
 }
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+/* Base styles for the custom toggle group */
+.custom-toggle-group {
+  display: flex;
+}
+
+/* Base button styles */
+.custom-toggle-button {
+  margin: 0 5px; /* Space between buttons */
+  padding: 10px 10px;
+  height: 40px;
+  min-width: 80px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect */
+.custom-toggle-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+  color: #000;
+}
+
+/* Active (Selected) state styling */
+.custom-toggle-button.active {
+  background-color: #1976d2; /* Primary color */
+  color: white;
+}
+
+/* Optional: If you want a stronger hover effect on non-active */
+.custom-toggle-button:not(.active):hover {
+  background-color: #1565c0;
+  color: white;
+}
+
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between the label and the dropdown */
+}
+
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+}
+
+#itemsPerPage {
+  width: 45px;
+}

@@ -7,6 +7,7 @@ import { FilterComponent } from "./filterbar/filterbar.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { MatButtonModule } from "@angular/material/button"; // Import MatButtonModule
 import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
+import { PaginationComponent } from "./components/pagination/pagination.component"; // Import PaginationComponent
 
 @Component({
   selector: "app-root",
@@ -22,6 +23,7 @@ import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
     HeaderComponent,
     MatButtonModule, // Include MatButtonModule
     MatIconModule,   // Include MatIconModule
+    PaginationComponent, // Include PaginationComponent
   ],
 })
 export class AppComponent {

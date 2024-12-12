@@ -1,13 +1,10 @@
-/* If you don't have a main element, you can wrap your router-outlet in a div and apply the margin */
 .topheader {
-padding: 25px;
+  padding: 25px;
 }
 
 .content {
-  /* margin-top: 100px; */
   margin-left: 300px;
   height: 100%;
-  /* padding: 1rem; */
 }
 
 .filterbar {
@@ -25,5 +22,12 @@ padding: 25px;
 }
 
 app-navbar {
-  flex: 1; /* Takes up the remaining space in the container */
+  flex: 1;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-top: 1px solid #ccc;
 }
