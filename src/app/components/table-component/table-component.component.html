@@ -35,7 +35,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of displayedData; let rowIndex = index">
+      <tr *ngFor="let item of data; let rowIndex = index">
         <td
           #tableCell
           *ngFor="let key of getKeys(item); let i = index"
@@ -96,26 +96,3 @@
     </tbody>
   </table>
 </div>
-
-<div class="pagination-container centered">
-  <label for="itemsPerPage">Items per page:</label>
-  <select
-    id="itemsPerPage"
-    [value]="pageSize"
-    (change)="onPageSizeChange($event)"
-  >
-    <option *ngFor="let option of pageSizeOptions" [value]="option">
-      {{ option }}
-    </option>
-  </select>
-
-  <mat-paginator
-  [length]="totalItems"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[]"
-  showFirstLastButtons
-  aria-label="Pagination"
-  (page)="onPageChange($event)"
-  hidePageSize
->
-</mat-paginator>

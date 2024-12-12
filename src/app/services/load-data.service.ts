@@ -39,18 +39,11 @@ export class LoadDataService {
     // if its taking it in as a paramater
     // return this.http.get<any[]>(url, { params });
   }
-  loadPaginatedData(dataSetName: string | null, page: number, size: number): Observable<any> {
-    if (!dataSetName) {
-      return throwError(
-        () => new Error("dataSetName cannot be null or undefined")
-      );
-    }
-    const sanitizedName = dataSetName.replace(/s$/, "");
-
-    const url = `${this.apiUrl}/${sanitizedName}?page=${page}&size=${size}`;
-    return this.http.get<any>(url);
-  }
-  updateData(dataSetName: string | null, id: number, data: any): Observable<any> {
+  updateData(
+    dataSetName: string | null,
+    id: number,
+    data: any
+  ): Observable<any> {
     if (!dataSetName) {
       return throwError(
         () => new Error("dataSetName cannot be null or undefined")
