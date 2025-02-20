@@ -1,9 +1,33 @@
+<!-- header.component.html -->
 <div class="top-header">
-  <img src="https://nelnetinc.com/wp-content/uploads/logo-facts-ed.png" alt="Logo Image" class="header-logo">
+  <img
+    src="https://nelnetinc.com/wp-content/uploads/logo-facts-ed.png"
+    alt="Logo Image"
+    class="header-logo"
+  />
   <header>Nelnet FACTS</header>
-  <div class="mini-fab-container">
-    <button mat-mini-fab aria-label="Hamburger menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
+
+  <mat-button-toggle-group [(value)]="selectedView" appearance="legacy" name="fontStyle" aria-label="Font Style">
+    <!-- Person View button (to be set up later) -->
+   <mat-button-toggle
+      routerLink="/person/student/21"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      value="personView"
+      [ngClass]="{ 'active-toggle': selectedView === 'personView' }"
+    >
+      Person View
+    </mat-button-toggle>
+    <!-- Table View button with routerLink -->
+    <mat-button-toggle
+      routerLink="/table/InvalidAddress"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      value="tableView"
+      [ngClass]="{ 'active-toggle': selectedView === 'tableView' }"
+    >
+      Table View
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  
 </div>

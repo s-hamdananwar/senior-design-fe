@@ -10,6 +10,10 @@
   width: 100%;
   z-index: 1000;
 }
+.same-size-button {
+  width: 145px; /* Set your desired width */
+  /* Optionally, you can add padding, margin, or other styling to further customize */
+}
 
 .header-logo {
   height: 80px; /* Makes the logo bigger */
@@ -18,13 +22,30 @@
 
 header {
   font-size: 2rem; /* Increases the text size */
-  font-weight: bold; 
-  color: #333; 
-  flex: 1; 
+  font-weight: bold;
+  color: #333;
+  flex: 1;
   text-align: center;
 }
 
 .mini-fab-container {
   margin-left: auto;
   padding: 5px 25px;
+}
+
+.mat-button-toggle-group {
+  margin-right: 50px;
+  border-radius: 4px;
+  margin-left: 12px;
+}
+
+.mat-button-toggle {
+  background-color: transparent !important;
+  color: #665ea9 !important; 
+}
+
+.active-toggle {
+  background-color: #665ea9 !important; /* Purple background */
+  color: white !important;
+  border-radius: 4px !important;
 }

@@ -1,0 +1,101 @@
+/* Container styling */
+.custom-form-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.required {
+  color: red;
+  font-weight: bold;
+  margin-left: 0.25rem; /* Add a little space after the label text */
+}
+.custom-input.req-field.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.custom-input.req-field.ng-valid.ng-touched {
+  border: 1px solid green;
+}
+/* Header styling */
+.custom-form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Form row: displays two form groups per row */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Two fields per row */
+.form-row-2 {
+  padding-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* Three fields per row */
+.form-row-3 {
+  padding-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Four fields per row */
+.form-row-4 {
+  padding-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+/* Each form group takes equal space in the row.
+   A minimum width is set so that on small screens the fields wrap. */
+.form-row .form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Form group styling */
+.form-group label {
+  display: block;
+  padding-left: 5px;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Input styling */
+.custom-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+.custom-button {
+  display: block;
+  width: flex;
+  padding: 0.75rem;
+  background-color: pink;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.custom-button:hover {
+  background-color: orange;
+}

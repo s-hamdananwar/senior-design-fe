@@ -2,15 +2,17 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { environment } from "../../environments/environment";
+import { finalize } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class LoadDataService {
   private apiUrl = `${environment.apiUrl}`;
+  isLoading: boolean = true; // Initially set to true
 
   constructor(private http: HttpClient) {}
-  // variable will be named isValid
+
   loadData(dataSetName: string | null, status: number): Observable<any[]> {
     console.log(status);
     if (!dataSetName) {
@@ -21,24 +23,20 @@ export class LoadDataService {
     if (!status) {
       status = 0;
     }
-    // console.log(dataSetName);
     const sanitizedName = dataSetName.replace(/(?<!s)s$/, "");
     console.log(sanitizedName);
-    // might need to drop $status depending on how backend is set up.
+
+    // Set isLoading to true before making the request
+    this.isLoading = true;
+    
     const url = `${this.apiUrl}/${sanitizedName}/${status}`;
-    // const url = `${this.apiUrl}/${sanitizedName}`;
-
-    // console.log(url);
-
-    // let params = new HttpParams();
-    // params = params.set("isValid", status);
-    // console.log(params);
-    // if its taking it in as /1 or /0
-    return this.http.get<any[]>(url);
-
-    // if its taking it in as a paramater
-    // return this.http.get<any[]>(url, { params });
+    return this.http.get<any[]>(url).pipe(
+      finalize(() => {
+        this.isLoading = false; // Set isLoading to false once data is loaded
+      })
+    );
   }
+
   updateData(
     dataSetName: string | null,
     id: number,

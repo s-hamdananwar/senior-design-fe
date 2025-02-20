@@ -1,26 +1,26 @@
 mat-form-field {
-    width: auto;
-    margin-top: 20px;
+  width: auto;
+  margin-top: 20px;
 }
 
 mat-label {
-    color: grey;
+  color: grey;
 }
 
 mat-mdc-form-field-infix {
-    align-items: center;
+  align-items: center;
 }
-  
+
 select {
-    padding: 15px;
-    font-size: 16px;
+  padding: 15px;
+  font-size: 16px;
 }
 
 .form-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Pushes items to opposite sides */
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes items to opposite sides */
+  width: 100%;
 }
 
 .select-field {
@@ -32,26 +32,33 @@ select {
 }
 
 ::ng-deep .search-field .mat-mdc-form-field-infix {
-    margin-top: 15px;
-    color: grey;
+  margin-top: 15px;
+  color: grey;
 }
 
 ::ng-deep .appearance {
-    background-color: #665ea9;
+  background-color: #665ea9;
 }
 
 :host ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading {
-    border-color: #665ea9 !important;
+  border-color: #665ea9 !important;
 }
 
 :host ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch {
-    border-color: #665ea9 !important;
+  border-color: #665ea9 !important;
 }
 
 :host ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing {
-    border-color: #665ea9 !important;
+  border-color: #665ea9 !important;
 }
 
 ::ng-deep .mat-icon {
-    color: #665ea9;
+  color: #665ea9;
+}
+.error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  padding: 20px;
+  font-size: 1.2em;
 }

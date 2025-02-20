@@ -1,83 +1,103 @@
 <div class="table-container">
-  <section class="toggle-container">
-    <div class="custom-toggle-group">
-      <!-- Valid Data Button -->
-      <button
-        class="custom-toggle-button"
-        type="button"
-        [class.active]="selectedStatus === 1"
-        (click)="onToggleChange(1)"
-      >
-        Valid
-      </button>
-      <!-- Invalid Data Button -->
-      <button
-        class="custom-toggle-button"
-        type="button"
-        [class.active]="selectedStatus === 0"
-        (click)="onToggleChange(0)"
-      >
-        Invalid
-      </button>
-    </div>
-  </section>
+  <div *ngIf="data.length === 0" class="error-message" style="text-indent: 10px; margin-bottom: 5px; margin-top: 5px; font-weight: bold;">
+    No data available to load.
+  </div>
 
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th *ngFor="let key of getKeys(data[0]); let i = index" [class.fixed-column]="i === 0">
-          {{ formatHeader(key) }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of displayedData; let rowIndex = index">
-        <td *ngFor="let key of getKeys(item); let i = index" [class.fixed-column]="i === 0">
-          <ng-container *ngIf="i === 0; else displayCell">
-            <div class="input-container">
-              <input
-                [(ngModel)]="data[rowIndex][key]"
-                [name]="'input_' + rowIndex + '_' + i"
-                (ngModelChange)="onValueChange(rowIndex, key, $event)"
-                (blur)="onInputBlur(rowIndex)"
-                class="fixed-input"
-                [ngClass]="{
-                  'invalid-input': validationState[rowIndex] && !validationState[rowIndex][key]
-                }"
-              />
-              <span
-                *ngIf="validationState[rowIndex] && validationState[rowIndex][key] === true"
-                class="checkmark"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="green"
-                  viewBox="0 0 16 16"
+ 
+    <section class="toggle-container">
+      <div class="custom-toggle-group">
+        <!-- Valid Data Button -->
+        <button
+          class="custom-toggle-button"
+          type="button"
+          [class.active]="selectedStatus === 1"
+          (click)="onToggleChange(1)"
+        >
+          Valid
+        </button>
+        <!-- Invalid Data Button -->
+        <button
+          class="custom-toggle-button"
+          type="button"
+          [class.active]="selectedStatus === 0"
+          (click)="onToggleChange(0)"
+        >
+          Invalid
+        </button>
+      </div>
+    </section>
+    <ng-container *ngIf="data.length > 0">
+    <!-- Table -->
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th
+            *ngFor="let key of getKeys(data[0]); let i = index"
+            [class.fixed-column]="i === 0"
+          >
+            {{ formatHeader(key) }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of displayedData; let rowIndex = index">
+          <td
+            *ngFor="let key of getKeys(item); let i = index"
+            [class.fixed-column]="i === 0"
+          >
+            <ng-container *ngIf="i === 0; else displayCell">
+              <div class="input-container">
+                <input
+                  [(ngModel)]="data[rowIndex][key]"
+                  [name]="'input_' + rowIndex + '_' + i"
+                  (ngModelChange)="onValueChange(rowIndex, key, $event)"
+                  (blur)="onInputBlur(rowIndex)"
+                  class="fixed-input"
+                  [ngClass]="{
+                    'invalid-input':
+                      validationState[rowIndex] && !validationState[rowIndex][key]
+                  }"
+                />
+                <span
+                  *ngIf="
+                    validationState[rowIndex] &&
+                    validationState[rowIndex][key] === true
+                  "
+                  class="checkmark"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M13.485 1.929a.75.75 0 010 1.06L6.56 10.915l-3.554-3.554a.75.75 0 00-1.06 1.06l4 4a.75.75 0 001.06 0l7-7a.75.75 0 000-1.06z"
-                  />
-                </svg>
-              </span>
-              <span
-                *ngIf="validationState[rowIndex] && validationState[rowIndex][key] !== true"
-                class="tooltip-container"
-              >
-                <mat-icon class="red-icon">help_outline</mat-icon>
-                <span class="custom-tooltip">
-                  {{ validationState[rowIndex][key] }}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="green"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M13.485 1.929a.75.75 0 010 1.06L6.56 10.915l-3.554-3.554a.75.75 0 00-1.06 1.06l4 4a.75.75 0 001.06 0l7-7a.75.75 0 000-1.06z"
+                    />
+                  </svg>
                 </span>
-              </span>
-            </div>
-          </ng-container>
-          <ng-template #displayCell>{{ item[key] }}</ng-template>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+                <span
+                  *ngIf="
+                    validationState[rowIndex] &&
+                    validationState[rowIndex][key] !== true
+                  "
+                  class="tooltip-container"
+                >
+                  <mat-icon class="red-icon">help_outline</mat-icon>
+                  <span class="custom-tooltip">
+                    {{ validationState[rowIndex][key] }}
+                  </span>
+                </span>
+              </div>
+            </ng-container>
+            <ng-template #displayCell>{{ item[key] }}</ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
 </div>
 
 <div class="pagination-container centered">
@@ -100,3 +120,86 @@
     hidePageSize
   ></mat-paginator>
 </div>
+
+<!-- Loading Spinner -->
+<div *ngIf="isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+  <p>Loading...</p>
+</div>
+
+<!-- Existing Table Content -->
+<!-- <div *ngIf="!isLoading">
+  <div *ngIf="data.length === 0" class="error-message">
+    No data available to load.
+  </div>
+
+  <table *ngIf="data.length > 0" class="styled-table">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let key of getKeys(data[0]); let i = index"
+          [class.fixed-column]="i === 0"
+        >
+          {{ formatHeader(key) }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of displayedData; let rowIndex = index">
+        <td
+          *ngFor="let key of getKeys(item); let i = index"
+          [class.fixed-column]="i === 0"
+        >
+          <ng-container *ngIf="i === 0; else displayCell">
+            <div class="input-container">
+              <input
+                [(ngModel)]="data[rowIndex][key]"
+                [name]="'input_' + rowIndex + '_' + i"
+                (ngModelChange)="onValueChange(rowIndex, key, $event)"
+                (blur)="onInputBlur(rowIndex)"
+                class="fixed-input"
+                [ngClass]="{
+                  'invalid-input':
+                    validationState[rowIndex] && !validationState[rowIndex][key]
+                }"
+              />
+              <span
+                *ngIf="
+                  validationState[rowIndex] &&
+                  validationState[rowIndex][key] === true
+                "
+                class="checkmark"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="green"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M13.485 1.929a.75.75 0 010 1.06L6.56 10.915l-3.554-3.554a.75.75 0 00-1.06 1.06l4 4a.75.75 0 001.06 0l7-7a.75.75 0 000-1.06z"
+                  />
+                </svg>
+              </span>
+              <span
+                *ngIf="
+                  validationState[rowIndex] &&
+                  validationState[rowIndex][key] !== true
+                "
+                class="tooltip-container"
+              >
+                <mat-icon class="red-icon">help_outline</mat-icon>
+                <span class="custom-tooltip">
+                  {{ validationState[rowIndex][key] }}
+                </span>
+              </span>
+            </div>
+          </ng-container>
+          <ng-template #displayCell>{{ item[key] }}</ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->

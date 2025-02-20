@@ -1,21 +1,13 @@
 /* If you don't have a main element, you can wrap your router-outlet in a div and apply the margin */
 .topheader {
-padding: 25px;
+  padding: 25px;
 }
 
 .content {
-  /* margin-top: 100px; */
-  margin-left: 300px;
+  margin-top: 80px;
+  margin-left: 280px;
   height: 100%;
   /* padding: 1rem; */
-}
-
-.filterbar {
-  display: flex;
-  margin-left: 300px;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 80px;
 }
 
 .navbar-wrapper {

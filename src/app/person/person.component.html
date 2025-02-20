@@ -1,0 +1,203 @@
+<div class="custom-form-container">
+  <h2>
+    {{ personForm.get("firstName")?.value }}
+    {{ personForm.get("lastName")?.value }}
+  </h2>
+  <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+    <!-- Row 1: Record ID and School Code -->
+
+    <!-- Two fields per row -->
+    <div class="form-row-3">
+      <div class="form-group">
+        <label for="studentId">Student ID</label>
+        <input
+          id="studentId"
+          type="text"
+          formControlName="studentId"
+          class="custom-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="schoolCode"
+          >School Code <span class="required">*</span></label
+        >
+        <input
+          id="schoolCode"
+          type="text"
+          formControlName="schoolCode"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Birth Date<span class="required">*</span></label>
+        <input
+          id="birthDate"
+          type="text"
+          formControlName="birthDate"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+
+    <!-- Three fields per row -->
+    <div class="form-row-4">
+      <div class="form-group">
+        <label for="firstName">
+          First Name <span class="required">*</span>
+        </label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="lastName">
+          Last Name <span class="required">*</span>
+        </label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="middleName">Middle Name</label>
+        <input
+          id="middleName"
+          type="text"
+          formControlName="middleName"
+          class="custom-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="gender"> Gender <span class="required">*</span> </label>
+        <input
+          id="gender"
+          type="text"
+          formControlName="gender"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+
+    <!-- Three fields per row -->
+    <div class="form-row-3">
+      <div class="form-group">
+        <label for="address1"> Address <span class="required">*</span> </label>
+        <input
+          id="address1"
+          type="text"
+          formControlName="address1"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city"> City <span class="required">*</span> </label>
+        <input
+          id="city"
+          type="text"
+          formControlName="city"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="state"> State <span class="required">*</span> </label>
+        <input
+          id="state"
+          type="text"
+          formControlName="state"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+    <div class="form-row-4">
+      <div class="form-group">
+        <label for="homePhone">
+          Home Phone <span class="required">*</span>
+        </label>
+        <input
+          id="homePhone"
+          type="text"
+          formControlName="homePhone"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="cellPhone">
+          Cell Phone <span class="required">*</span>
+        </label>
+        <input
+          id="cellPhone"
+          type="text"
+          formControlName="cellPhone"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span> </label>
+        <input
+          id="email"
+          type="text"
+          formControlName="email"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email2"> Secondary Email </label>
+        <input
+          id="email2"
+          type="text"
+          formControlName="email2"
+          class="custom-input"
+        />
+      </div>
+    </div>
+    <div class="form-row-4">
+      <div class="form-group">
+        <label for="gradeLevel"> Grade <span class="required">*</span> </label>
+        <input
+          id="gradeLevel"
+          type="text"
+          formControlName="gradeLevel"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="enrollDate">
+          Enroll Date <span class="required">*</span>
+        </label>
+        <input
+          id="enrollDate"
+          type="text"
+          formControlName="enrollDate"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="withdrawDate">Withdraw Date </label>
+        <input
+          id="withdrawDate"
+          type="text"
+          formControlName="withdrawDate"
+          class="custom-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="graduationDate">
+          Graduation Date <span class="required">*</span></label
+        >
+        <input
+          id="graduationDate"
+          type="text"
+          formControlName="graduationDate"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+    <!-- Submit Button -->
+    <!-- <button type="submit" class="custom-button">Submit</button> -->
+  </form>
+</div>

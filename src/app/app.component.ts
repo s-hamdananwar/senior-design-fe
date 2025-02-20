@@ -21,7 +21,7 @@ import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
     FilterComponent,
     HeaderComponent,
     MatButtonModule, // Include MatButtonModule
-    MatIconModule,   // Include MatIconModule
+    MatIconModule, // Include MatIconModule
   ],
 })
 export class AppComponent {

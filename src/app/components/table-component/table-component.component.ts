@@ -9,7 +9,12 @@ import { debounceTime } from "rxjs/operators";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatPaginator, MatPaginatorModule, PageEvent } from "@angular/material/paginator";
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from "@angular/material/paginator";
+import { MatPaginatorIntl } from "@angular/material/paginator";
 
 @Component({
   selector: "app-table-component",
@@ -32,22 +37,30 @@ export class TableComponent implements OnInit {
   data: any[] = [];
   displayedData: any[] = [];
   title: string = "";
-  validationState: { [rowIndex: number]: { [key: string]: true | string } } = {};
+  validationState: { [rowIndex: number]: { [key: string]: true | string } } =
+    {};
   private rowUpdateSubject = new Subject<number>();
 
   totalItems = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
   currentPage = 0;
-
   selectedStatus: number = 0;
+
+  isLoading: boolean = true; // Added loading state
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: LoadDataService
+    private dataService: LoadDataService,
+    private paginatorIntl: MatPaginatorIntl
   ) {}
 
   ngOnInit() {
+    this.paginatorIntl.nextPageLabel = "";
+    this.paginatorIntl.previousPageLabel = "";
+    this.paginatorIntl.firstPageLabel = "";
+    this.paginatorIntl.lastPageLabel = "";
+    this.paginatorIntl.changes.next();
     this.route.paramMap.subscribe((params) => {
       this.dataSetName = params.get("dataSet");
       this.validationState = {};
@@ -71,12 +84,26 @@ export class TableComponent implements OnInit {
       return;
     }
 
-    this.dataService.loadData(dataSetName, selectedStatus).subscribe((data: any[]) => {
-      this.data = data;
-      this.totalItems = data.length;
-      this.updateDisplayedData();
-      this.setTitle();
-    });
+    this.isLoading = true; // Set loading to true before fetching data
+    this.currentPage = 0;
+
+    if (this.paginator) {
+      this.paginator.pageIndex = 0;
+    }
+
+    this.dataService.loadData(dataSetName, selectedStatus).subscribe(
+      (data: any[]) => {
+        this.data = data;
+        this.totalItems = data.length;
+        this.updateDisplayedData();
+        this.setTitle();
+        this.isLoading = false; // Set loading to false when done
+      },
+      (error) => {
+        console.error("Error loading data", error);
+        this.isLoading = false; // Ensure loading stops even on error
+      }
+    );
   }
 
   setTitle() {
@@ -104,6 +131,7 @@ export class TableComponent implements OnInit {
     this.pageSize = newSize;
     this.currentPage = 0;
     this.updateDisplayedData();
+
     if (this.paginator) {
       this.paginator.pageIndex = 0;
       this.paginator.pageSize = newSize;
@@ -125,7 +153,9 @@ export class TableComponent implements OnInit {
   processRowUpdate(rowIndex: number) {
     const rowValidation = this.validationState[rowIndex];
     if (rowValidation) {
-      const isRowValid = Object.values(rowValidation).every((val) => val === true);
+      const isRowValid = Object.values(rowValidation).every(
+        (val) => val === true
+      );
       if (isRowValid) {
         const rowData = this.data[rowIndex];
         const id = rowData.id;
@@ -151,7 +181,12 @@ export class TableComponent implements OnInit {
   }
 
   getKeys(obj: any): string[] {
-    return Object.keys(obj).filter((key) => key.toLowerCase() !== "id" && key.toLowerCase() !== "field");
+    return Object.keys(obj).filter(
+      (key) =>
+        key.toLowerCase() !== "id" &&
+        key.toLowerCase() !== "field" &&
+        key.toLowerCase() !== "isvalid"
+    );
   }
 
   getTooltipText(rowIndex: number, key: string): string {

@@ -3,10 +3,10 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px; 
+  width: flex;
   height: 100vh;
   background-color: white;
-  padding: .5rem;
+  padding: 0.5rem;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
   padding-top: 105px;
@@ -36,6 +36,20 @@ nav li {
 .nav-button {
   display: block;
   width: calc(100% - 16px); /* Slightly reduced width to fit within padding */
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+/* 4. Navigation Links */
+.table-button {
+  display: block;
+  width: calc(50% - 16px); /* Slightly reduced width to fit within padding */
   padding: 10px 15px;
   background-color: white;
   color: black;
@@ -92,7 +106,7 @@ nav ul::-webkit-scrollbar-thumb:hover {
   border-radius: 5px;
 }
 
-.settings-section .mat-divider{
+.settings-section .mat-divider {
   color: gray;
 }
 
@@ -105,4 +119,3 @@ nav ul::-webkit-scrollbar-thumb:hover {
   box-shadow: none;
   background-color: white;
 }
-
