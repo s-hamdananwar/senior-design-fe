@@ -119,3 +119,15 @@ nav ul::-webkit-scrollbar-thumb:hover {
   box-shadow: none;
   background-color: white;
 }
+
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  background-color: white !important;
+  border-radius: 6px !important;
+  padding: 8px !important;
+  color: black !important;
+}
+
+.custom-selector .mdc-text-field--outlined {
+  border-radius: 1rem;
+}
+

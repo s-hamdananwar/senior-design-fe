@@ -7,27 +7,29 @@
   />
   <header>Nelnet FACTS</header>
 
-  <mat-button-toggle-group [(value)]="selectedView" appearance="legacy" name="fontStyle" aria-label="Font Style">
+  <div class="custom-toggle-buttons">
     <!-- Person View button (to be set up later) -->
-   <mat-button-toggle
+   <button
+      class="custom-toggle-button"
       routerLink="/person/student/21"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       value="personView"
-      [ngClass]="{ 'active-toggle': selectedView === 'personView' }"
+      [class.active]="selectedView === 'personView'"
     >
       Person View
-    </mat-button-toggle>
+    </button>
     <!-- Table View button with routerLink -->
-    <mat-button-toggle
+    <button
+      class="custom-toggle-button"
       routerLink="/table/InvalidAddress"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       value="tableView"
-      [ngClass]="{ 'active-toggle': selectedView === 'tableView' }"
+      [class.active]="selectedView === 'tableView'"
     >
       Table View
-    </mat-button-toggle>
-  </mat-button-toggle-group>
+    </button>
+  </div>
   
 </div>

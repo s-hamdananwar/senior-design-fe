@@ -17,6 +17,16 @@
     </mat-form-field>
   </div>
 
+  <!-- <div style="margin-top: 20px;">
+    <mat-form-field appearance="outline">
+      <select matNativeControl required>
+        <option value="student">Student</option>
+        <option value="parent">Parent</option>
+        <option value="staff">Staff</option>
+      </select>
+    </mat-form-field>
+  </div> -->
+
   <ul>
     <li *ngFor="let item of filteredNavItems">
       <a
@@ -24,6 +34,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-button"
+        (click)="selectTable(item)"
       >
         {{ item.label }}
       </a>

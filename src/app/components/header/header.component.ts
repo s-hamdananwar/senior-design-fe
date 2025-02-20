@@ -14,5 +14,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  selectedView: string = 'tableView';
+  selectedView: string = '';
+
+  // Method to handle toggle button selection
+  selectView(view: string): void {
+    this.selectedView = view;
+  }
 }

@@ -28,24 +28,37 @@ header {
   text-align: center;
 }
 
-.mini-fab-container {
+/* .mini-fab-container {
   margin-left: auto;
   padding: 5px 25px;
-}
+} */
 
-.mat-button-toggle-group {
+.custom-toggle-buttons {
+  display: flex;
   margin-right: 50px;
-  border-radius: 4px;
-  margin-left: 12px;
+  gap: 3px;
 }
 
-.mat-button-toggle {
-  background-color: transparent !important;
-  color: #665ea9 !important; 
+.custom-toggle-button {
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  margin: 0;
 }
 
-.active-toggle {
-  background-color: #665ea9 !important; /* Purple background */
-  color: white !important;
-  border-radius: 4px !important;
+.custom-toggle-button:hover {
+  background-color: #f1f1f1;
+}
+
+.custom-toggle-button.active {
+  background-color: #665ea9;
+  color: white;
+}
+
+.custom-toggle-button:focus {
+  outline: none;
 }

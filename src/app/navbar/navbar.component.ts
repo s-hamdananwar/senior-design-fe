@@ -87,6 +87,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   
+  selectTable(item: NavItem) {
+    this.router.navigate([item.route]);
+  
+    this.inputValue = "";
+    this.showInput = false;
+  
+    this.filteredNavItems = [...this.navItems];
+  }
+
   ngOnDestroy(): void {
     if (this.routerSub) {
       this.routerSub.unsubscribe();

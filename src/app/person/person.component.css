@@ -2,7 +2,9 @@
 .custom-form-container {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 1rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

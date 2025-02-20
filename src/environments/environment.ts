@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   apiUrl:
-    "https://migrationbackend-bchqfygxaefmgngz.centralus-01.azurewebsites.net/api", // Development API URL
+    "https://migrationbackend2-e4bveme0bdcja2cm.centralus-01.azurewebsites.net/api", // Development API URL
 };
 
 // // src/environments/environment.prod.ts

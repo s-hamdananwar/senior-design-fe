@@ -171,12 +171,12 @@ table td.fixed-column {
 }
 
 .custom-toggle-button.active {
-  background-color: #1976d2;
+  background-color: #665ea9;
   color: white;
 }
 
 .custom-toggle-button:not(.active):hover {
-  background-color: #1565c0;
+  background-color: #665ea9;
   color: white;
 }
 
