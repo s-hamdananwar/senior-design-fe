@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Router, NavigationEnd, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -10,7 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
-import { MatInputModule } from "@angular/material/input"; 
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
   selector: "app-navbar",
@@ -42,12 +42,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
-    // Initial data load.
+    this.selectedStatus = null;
     this.fetchData();
-
     this.routerSub = this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event: NavigationEnd) => {
+        if (event.url.includes("/table/")) {
+          this.selectedStatus = null;
+          this.filterNavItems();
+        }
         this.fetchData();
       });
   }
@@ -57,7 +64,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       (data: NavItem[]) => {
         console.log("API Data:", data);
         this.navItems = [...data];
-        this.filteredNavItems = [...data]; // Reset table list upon search input deletion
+        this.filterNavItems();
       },
       (error) => {
         console.error("Error fetching navigation items:", error);
@@ -74,31 +81,55 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }, 0);
     }
   }
-  
-  filterTables() {
-    const query = this.inputValue.toLowerCase().trim();
 
-    if (query === "") {
-      this.filteredNavItems = [...this.navItems];
-    } else {
-      this.filteredNavItems = this.navItems.filter(item =>
+  // Filter both by search input and selectedStatus.
+  filterNavItems(): void {
+    let filtered = [...this.navItems];
+
+    // Filter by search input if provided.
+    const query = this.inputValue.toLowerCase().trim();
+    if (query !== "") {
+      filtered = filtered.filter((item) =>
         item.label.toLowerCase().includes(query)
       );
     }
+
+    // Filter by selectedStatus if it is set.
+    if (this.selectedStatus === "valid") {
+      filtered = filtered.filter((item) => (item as any).isValid === true);
+    } else if (this.selectedStatus === "invalid") {
+      filtered = filtered.filter((item) => (item as any).isValid === false);
+    }
+
+    this.filteredNavItems = filtered;
   }
-  
+
+  // This method is still used by your search input.
+  filterTables() {
+    this.filterNavItems();
+  }
+
   selectTable(item: NavItem) {
-    this.router.navigate([item.route]);
-  
-    this.inputValue = "";
-    this.showInput = false;
-  
-    this.filteredNavItems = [...this.navItems];
+    this.router.navigate([item.route]).then(() => {
+      this.inputValue = "";
+      this.showInput = false;
+      this.filterNavItems();
+    });
   }
 
   ngOnDestroy(): void {
     if (this.routerSub) {
       this.routerSub.unsubscribe();
     }
+  }
+
+  @Input() selectedView: string = "";
+
+  selectedCategory: string | null = null;
+  selectedStatus: string | null = null;
+
+  clearFilter() {
+    this.selectedCategory = null;
+    this.selectedStatus = null;
   }
 }

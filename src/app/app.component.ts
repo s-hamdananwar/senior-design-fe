@@ -26,4 +26,10 @@ import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
 })
 export class AppComponent {
   title = "FACTS";
+
+  selectedView: string = '';
+
+  updateSelectedView(view: string) {
+    this.selectedView = view;
+  }
 }

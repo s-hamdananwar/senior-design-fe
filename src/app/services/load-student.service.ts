@@ -20,19 +20,8 @@ export class LoadStudentService {
     return this.http.get<any[]>(url);
   }
 
-  //   updateData(
-  //     dataSetName: string | null,
-  //     id: number,
-  //     data: any
-  //   ): Observable<any> {
-  //     if (!dataSetName) {
-  //       return throwError(
-  //         () => new Error("dataSetName cannot be null or undefined")
-  //       );
-  //     }
-  //     const sanitizedName = dataSetName.replace(/s$/, "");
-
-  //     const url = `${this.apiUrl}/${sanitizedName}/${id}`;
-  //     return this.http.put<any>(url, data);
-  //   }
+  updateData(id: number, data: any): Observable<any> {
+    const url = `${this.apiUrl}/Student/${id}`;
+    return this.http.put<any>(url, data);
+  }
 }

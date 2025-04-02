@@ -1,9 +1,9 @@
 <div class="topheader">
-  <top-header></top-header>
+  <top-header (viewChanged)="updateSelectedView($event)"></top-header>
 </div>
 
 <div class="navbar-wrapper">
-  <app-navbar></app-navbar>
+  <app-navbar [selectedView]="selectedView"></app-navbar>
 </div>
 
 <div class="content">

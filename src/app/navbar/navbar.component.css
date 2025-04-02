@@ -127,7 +127,12 @@ nav ul::-webkit-scrollbar-thumb:hover {
   color: black !important;
 }
 
-.custom-selector .mdc-text-field--outlined {
+.mdc-text-field--outlined {
   border-radius: 1rem;
 }
 
+.mat-mdc-form-field {
+  width: 120px !important;
+  margin-right: 16px !important;
+  color: #665ea9 !important;
+}

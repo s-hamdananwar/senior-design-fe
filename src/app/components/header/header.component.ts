@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -14,10 +14,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  selectedView: string = '';
+  @Output() viewChanged = new EventEmitter<string>();
 
-  // Method to handle toggle button selection
   selectView(view: string): void {
-    this.selectedView = view;
+    this.viewChanged.emit(view);
   }
 }

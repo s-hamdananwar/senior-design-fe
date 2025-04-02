@@ -4,7 +4,7 @@
       <mat-icon>search</mat-icon>
     </button>
 
-    <h2 *ngIf="!showInput" class="table-name">Name</h2>
+    <h2 *ngIf="!showInput" class="table-name">Table Name</h2>
 
     <mat-form-field
       appearance="outline"
@@ -12,20 +12,51 @@
       class="transition-input"
     >
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Search" [(ngModel)]="inputValue" (input)="filterTables()" />
+      <input
+        matInput
+        placeholder="Search"
+        [(ngModel)]="inputValue"
+        (input)="filterTables()"
+      />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 
-  <!-- <div style="margin-top: 20px;">
-    <mat-form-field appearance="outline">
-      <select matNativeControl required>
+  <div
+    style="margin-top: 20px; gap: 16px"
+    *ngIf="selectedView === 'personView'"
+  >
+    <!-- <mat-form-field appearance="outline">
+      <select matNativeControl required [(ngModel)]="selectedCategory">
+        <option [value]="null" disabled selected>Category</option>
         <option value="student">Student</option>
         <option value="parent">Parent</option>
         <option value="staff">Staff</option>
       </select>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="outline">
+      <select
+        matNativeControl
+        required
+        [(ngModel)]="selectedStatus"
+        (ngModelChange)="filterNavItems()"
+      >
+        <option [value]="null" disabled selected>Status</option>
+        <option value="valid">Valid</option>
+        <option value="invalid">Invalid</option>
+      </select>
     </mat-form-field>
-  </div> -->
+
+    <button
+      mat-mini-fab
+      color="warn"
+      (click)="clearFilter()"
+      aria-label="Clear Filter"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
 
   <ul>
     <li *ngFor="let item of filteredNavItems">

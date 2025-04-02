@@ -9,12 +9,12 @@ import {
 } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { PersonComponent } from "./person/person.component";
-// import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
+import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 
 // Import Angular Material modules
 
 @NgModule({
-  declarations: [AppComponent, FilterComponent, PersonComponent],
+  declarations: [AppComponent, FilterComponent, PersonComponent, ToggleButtonComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

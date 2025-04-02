@@ -9,13 +9,12 @@
 
   <div class="custom-toggle-buttons">
     <!-- Person View button (to be set up later) -->
-   <button
+    <button
       class="custom-toggle-button"
-      routerLink="/person/student/21"
+      routerLink="/person/student/62"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      value="personView"
-      [class.active]="selectedView === 'personView'"
+      (click)="selectView('personView')"
     >
       Person View
     </button>
@@ -25,11 +24,9 @@
       routerLink="/table/InvalidAddress"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      value="tableView"
-      [class.active]="selectedView === 'tableView'"
+      (click)="selectView('tableView')"
     >
       Table View
     </button>
   </div>
-  
 </div>

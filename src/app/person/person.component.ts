@@ -1,10 +1,18 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoadStudentService } from "../services/load-student.service";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { Subscription } from "rxjs";
+import { validateData } from "../services/validate-data.service"; // adjust the path if needed
+import { validateDateData } from "../services/validate-date.service"; // adjust the path if needed
 
 @Component({
   selector: "app-person",
@@ -16,7 +24,7 @@ import { Subscription } from "rxjs";
 export class PersonComponent implements OnInit {
   personForm!: FormGroup;
   routeSub!: Subscription;
-  studentId!: number;
+  Id!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +37,10 @@ export class PersonComponent implements OnInit {
     this.routeSub = this.route.paramMap.subscribe((params) => {
       const idParam = params.get("studentId");
       if (idParam) {
-        this.studentId = +idParam;
+        this.Id = +idParam;
         this.personForm.reset();
-        this.personForm.patchValue({ studentId: this.studentId });
-        this.loadStudentService.loadData(this.studentId).subscribe({
+        this.personForm.patchValue({ Id: this.Id });
+        this.loadStudentService.loadData(this.Id).subscribe({
           next: (data: any) => {
             this.personForm.patchValue(data);
             console.log(data);
@@ -45,41 +53,125 @@ export class PersonComponent implements OnInit {
       }
     });
   }
+
+  validateDataValidator(dataSetName: string) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (
+        control.value === null ||
+        control.value === undefined ||
+        control.value === ""
+      ) {
+        return null;
+      }
+
+      let result: true | string;
+      const dateDataSetNames = [
+        "InvalidDates",
+        "StudentMissingBirthdate",
+        "StudentMissingEnrollDates",
+        "enrollDate",
+        "withdrawDate",
+        "graduationDate",
+        "birthDate",
+        "baptismDate",
+        "communionDate",
+        "reconciliationDate",
+        "confirmationDate",
+        "barmitzvahDate",
+      ];
+
+      if (dateDataSetNames.includes(dataSetName)) {
+        result = validateDateData(control.value);
+      } else {
+        result = validateData(control.value, dataSetName);
+      }
+      return result === true ? null : { validateDataError: result };
+    };
+  }
+
+  private isControlRequired(control: AbstractControl): boolean {
+    if (!control.validator) {
+      return false;
+    }
+    const validatorResult = control.validator({
+      value: null,
+    } as AbstractControl);
+    return validatorResult ? "required" in validatorResult : false;
+  }
+
   initializeForm(): void {
     this.personForm = this.fb.group({
-      studentId: [""],
-      schoolCode: [""], // Added
+      isValid: [""],
+      Id: [""],
+      schoolCode: [""],
       familyName: [""], // Added
       familyNameSecond: [""], // Maybe add?
       legacyPersonId: [""], // Maybe add?
-      schoolId: ["", Validators.required],
-      firstName: ["", Validators.required],
-      middleName: [""],
-      lastName: ["", Validators.required],
-      suffix: [""], // not added yet
+      schoolId: [""],
+      firstName: [
+        "",
+        [Validators.required, this.validateDataValidator("firstName")],
+      ],
+      middleName: [
+        "",
+        [Validators.required, this.validateDataValidator("middleName")],
+      ],
+      lastName: [
+        "",
+        [Validators.required, this.validateDataValidator("lastName")],
+      ],
+      suffix: ["", [Validators.required, this.validateDataValidator("suffix")]], // not added yet
       nickName: [""], // not added yet
-      address1: ["", Validators.required],
-      address2: [""], // add special drop down later?
-      city: ["", Validators.required],
-      state: ["", Validators.required],
-      zip: [""],
-      country: [""],
-      homePhone: ["", Validators.required],
-      cellPhone: ["", Validators.required],
-      ssn: [""],
-      status: [""],
+      address1: [
+        "",
+        [Validators.required, this.validateDataValidator("address1")],
+      ],
+      address2: ["", this.validateDataValidator("address2")], // add special drop down later?
+      city: ["", [Validators.required, this.validateDataValidator("city")]],
+      state: ["", [Validators.required, this.validateDataValidator("state")]],
+      zip: ["", [Validators.required, this.validateDataValidator("zip")]],
+      country: [
+        "",
+        [Validators.required, this.validateDataValidator("country")],
+      ],
+      homePhone: [
+        "",
+        [Validators.required, this.validateDataValidator("homePhone")],
+      ],
+
+      cellPhone: [
+        "",
+        [Validators.required, this.validateDataValidator("cellPhone")],
+      ],
+      ssn: ["", [Validators.required, this.validateDataValidator("ssn")]],
+      status: ["", [Validators.required, this.validateDataValidator("status")]],
       subStatus: [""],
-      gradeLevel: ["", Validators.required], // Added
-      enrollDate: ["", Validators.required], // Added
-      withdrawDate: [""], // Added
-      graduationDate: ["", Validators.required],
-      gender: ["", Validators.required],
-      birthDate: ["", Validators.required],
-      email: ["", Validators.required], // Added
-      email2: [""],
-      ethnicity: [""],
-      locker1: [""],
-      combination1: [""],
+      gradeLevel: [
+        "",
+        [Validators.required, this.validateDataValidator("gradeLevel")],
+      ], // Added
+      enrollDate: [
+        "",
+        [Validators.required, this.validateDataValidator("enrollDate")],
+      ], // Added
+      withdrawDate: ["", this.validateDataValidator("withdrawDate")], // Added
+      graduationDate: [
+        "",
+        [Validators.required, this.validateDataValidator("graduationDate")],
+      ],
+      gender: ["", [Validators.required, this.validateDataValidator("gender")]],
+      birthDate: [
+        "",
+        [Validators.required, this.validateDataValidator("birthDate")],
+      ],
+      email: ["", [Validators.required, this.validateDataValidator("email")]],
+      email2: ["", this.validateDataValidator("email2")], // need to make it not required but still validate and show errors
+      ethnicity: [
+        "",
+        [Validators.required, this.validateDataValidator("ethnicity")],
+      ],
+      locker1: ["", [this.validateDataValidator("locker1")]],
+      combination1: ["", [this.validateDataValidator("combination1")]], //added
       locker2: [""],
       combination2: [""],
       previousSchool: [""],
@@ -88,7 +180,7 @@ export class PersonComponent implements OnInit {
       previousSchoolEndDate: [""],
       previousSchoolNote: [""],
       previousSchoolGradeCompleted: [""],
-      classOf: [""],
+      classOf: ["", [this.validateDataValidator("classOf")]],
       denomination: [""],
       church: [""],
       baptismChurch: [""],
@@ -96,7 +188,7 @@ export class PersonComponent implements OnInit {
       baptismCity: [""],
       baptismState: [""],
       communionChurch: [""],
-      communionDate: ["", Validators.required],
+      communionDate: [""],
       communionCity: [""],
       communionState: [""],
       confirmationChurch: [""],
@@ -140,13 +232,43 @@ export class PersonComponent implements OnInit {
       permissionToTreat: [""],
       reducedlunch: [""],
       username: [""],
-      primarylanguage: [""],
+      primarylanguage: ["", this.validateDataValidator("primarylanguage")], //added
       note: [""],
       faepersonId: [""],
     });
   }
   onSubmit(): void {
+    this.personForm.markAllAsTouched();
+
+    let allRequiredValid = true;
+    Object.keys(this.personForm.controls).forEach((key) => {
+      const control = this.personForm.get(key);
+      if (control && this.isControlRequired(control)) {
+        if (!control.valid) {
+          allRequiredValid = false;
+        }
+      }
+    });
+
+    if (allRequiredValid) {
+      this.personForm.get("isValid")?.setValue(true);
+    } else {
+      this.personForm.get("isValid")?.setValue(false);
+    }
     console.log("Form submitted:", this.personForm.value);
-    // You can add your API call or other logic here.
+
+    // Use the studentId already set in ngOnInit
+    this.loadStudentService
+      .updateData(this.Id, this.personForm.value)
+      .subscribe({
+        next: (response) => {
+          console.log("Student updated successfully:", response);
+          // Optionally, perform further actions here (e.g., navigate away or show a success message)
+        },
+        error: (err) => {
+          console.error("Error updating student data:", err);
+          // Optionally, handle the error (e.g., show an error message to the user)
+        },
+      });
   }
 }

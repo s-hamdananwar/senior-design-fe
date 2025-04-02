@@ -7,14 +7,14 @@
     <!-- Row 1: Record ID and School Code -->
 
     <!-- Two fields per row -->
-    <div class="form-row-3">
+    <!-- <div class="form-row-3">
       <div class="form-group">
-        <label for="studentId">Student ID</label>
+        <label for="Id">Student ID <span class="required">*</span></label>
         <input
-          id="studentId"
+          id="Id"
           type="text"
-          formControlName="studentId"
-          class="custom-input"
+          formControlName="Id"
+          class="custom-input req-field"
         />
       </div>
       <div class="form-group">
@@ -29,15 +29,15 @@
         />
       </div>
       <div class="form-group">
-        <label for="birthDate">Birth Date<span class="required">*</span></label>
+        <label for="schoolId">School ID<span class="required">*</span></label>
         <input
-          id="birthDate"
+          id="schoolId"
           type="text"
-          formControlName="birthDate"
+          formControlName="schoolId"
           class="custom-input req-field"
         />
       </div>
-    </div>
+    </div> -->
 
     <!-- Three fields per row -->
     <div class="form-row-4">
@@ -64,27 +64,33 @@
         />
       </div>
       <div class="form-group">
-        <label for="middleName">Middle Name</label>
+        <label for="middleName"
+          >Middle Name <span class="required">*</span></label
+        >
         <input
           id="middleName"
           type="text"
           formControlName="middleName"
-          class="custom-input"
+          class="custom-input req-field"
         />
       </div>
       <div class="form-group">
         <label for="gender"> Gender <span class="required">*</span> </label>
-        <input
+        <select
           id="gender"
-          type="text"
           formControlName="gender"
           class="custom-input req-field"
-        />
+        >
+          <option value="" disabled selected>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
     </div>
 
     <!-- Three fields per row -->
-    <div class="form-row-3">
+    <div class="form-row-2">
       <div class="form-group">
         <label for="address1"> Address <span class="required">*</span> </label>
         <input
@@ -94,6 +100,18 @@
           class="custom-input req-field"
         />
       </div>
+      <div class="form-group">
+        <label for="address2"> Secondary Address </label>
+        <input
+          id="address1"
+          type="text"
+          formControlName="address2"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+    <!-- Three fields per row -->
+    <div class="form-row-4">
       <div class="form-group">
         <label for="city"> City <span class="required">*</span> </label>
         <input
@@ -105,10 +123,79 @@
       </div>
       <div class="form-group">
         <label for="state"> State <span class="required">*</span> </label>
-        <input
+        <select
           id="state"
-          type="text"
           formControlName="state"
+          class="custom-input req-field"
+        >
+          <option value="" disabled selected>Select state</option>
+          <option value="AL">AL</option>
+          <option value="AK">AK</option>
+          <option value="AZ">AZ</option>
+          <option value="AR">AR</option>
+          <option value="CA">CA</option>
+          <option value="CO">CO</option>
+          <option value="CT">CT</option>
+          <option value="DE">DE</option>
+          <option value="FL">FL</option>
+          <option value="GA">GA</option>
+          <option value="HI">HI</option>
+          <option value="ID">ID</option>
+          <option value="IL">IL</option>
+          <option value="IN">IN</option>
+          <option value="IA">IA</option>
+          <option value="KS">KS</option>
+          <option value="KY">KY</option>
+          <option value="LA">LA</option>
+          <option value="ME">ME</option>
+          <option value="MD">MD</option>
+          <option value="MA">MA</option>
+          <option value="MI">MI</option>
+          <option value="MN">MN</option>
+          <option value="MS">MS</option>
+          <option value="MO">MO</option>
+          <option value="MT">MT</option>
+          <option value="NE">NE</option>
+          <option value="NV">NV</option>
+          <option value="NH">NH</option>
+          <option value="NJ">NJ</option>
+          <option value="NM">NM</option>
+          <option value="NY">NY</option>
+          <option value="NC">NC</option>
+          <option value="ND">ND</option>
+          <option value="OH">OH</option>
+          <option value="OK">OK</option>
+          <option value="OR">OR</option>
+          <option value="PA">PA</option>
+          <option value="RI">RI</option>
+          <option value="SC">SC</option>
+          <option value="SD">SD</option>
+          <option value="TN">TN</option>
+          <option value="TX">TX</option>
+          <option value="UT">UT</option>
+          <option value="VT">VT</option>
+          <option value="VA">VA</option>
+          <option value="WA">WA</option>
+          <option value="WV">WV</option>
+          <option value="WI">WI</option>
+          <option value="WY">WY</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="zip"> Zip <span class="required">*</span> </label>
+        <input
+          id="zip"
+          type="text"
+          formControlName="zip"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="country"> Country <span class="required">*</span> </label>
+        <input
+          id="country"
+          type="text"
+          formControlName="country"
           class="custom-input req-field"
         />
       </div>
@@ -124,6 +211,12 @@
           formControlName="homePhone"
           class="custom-input req-field"
         />
+        <!-- <div
+          class="error-message"
+          *ngIf="personForm.get('email')?.errors?.validateDataError"
+        >
+          {{ personForm.get("email")?.errors?.validateDataError }}
+        </div> -->
       </div>
       <div class="form-group">
         <label for="cellPhone">
@@ -151,7 +244,71 @@
           id="email2"
           type="text"
           formControlName="email2"
-          class="custom-input"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label for="enrollDate">
+          Enroll Date <span class="required">*</span>
+        </label>
+        <input
+          id="enrollDate"
+          type="date"
+          formControlName="enrollDate"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="graduationDate">
+          Graduation Date <span class="required">*</span></label
+        >
+        <input
+          id="graduationDate"
+          type="date"
+          formControlName="graduationDate"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="withdrawDate">Withdraw Date </label>
+        <input
+          id="withdrawDate"
+          type="date"
+          formControlName="withdrawDate"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label for="status"> Status <span class="required">*</span> </label>
+        <input
+          id="status"
+          type="text"
+          formControlName="status"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="birthDate">
+          Birth Date <span class="required">*</span>
+        </label>
+        <input
+          id="birthDate"
+          type="date"
+          formControlName="birthDate"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="suffix">Suffix <span class="required">*</span></label>
+        <input
+          id="suffix"
+          type="text"
+          formControlName="suffix"
+          class="custom-input req-field"
         />
       </div>
     </div>
@@ -166,38 +323,66 @@
         />
       </div>
       <div class="form-group">
-        <label for="enrollDate">
-          Enroll Date <span class="required">*</span>
-        </label>
+        <label for="classOf"> Class Of </label>
         <input
-          id="enrollDate"
+          id="classOf"
           type="text"
-          formControlName="enrollDate"
+          formControlName="classOf"
           class="custom-input req-field"
         />
       </div>
       <div class="form-group">
-        <label for="withdrawDate">Withdraw Date </label>
+        <label for="locker1"> Locker # </label>
         <input
-          id="withdrawDate"
+          id="locker1"
           type="text"
-          formControlName="withdrawDate"
-          class="custom-input"
+          formControlName="locker1"
+          class="custom-input req-field"
         />
       </div>
       <div class="form-group">
-        <label for="graduationDate">
-          Graduation Date <span class="required">*</span></label
-        >
+        <label for="combination1">Locker Combination </label>
         <input
-          id="graduationDate"
+          id="combination1"
           type="text"
-          formControlName="graduationDate"
+          formControlName="combination1"
           class="custom-input req-field"
         />
       </div>
     </div>
+    <div class="form-row-3">
+      <div class="form-group">
+        <label for="ssn"> SSN <span class="required">*</span> </label>
+        <input
+          id="ssn"
+          type="text"
+          formControlName="ssn"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="ethnicity">
+          Ethnicity <span class="required">*</span>
+        </label>
+        <input
+          id="ethnicity"
+          type="text"
+          formControlName="ethnicity"
+          class="custom-input req-field"
+        />
+      </div>
+      <div class="form-group">
+        <label for="primarylanguage">Primary Language </label>
+        <input
+          id="primarylanguage"
+          type="text"
+          formControlName="primarylanguage"
+          class="custom-input req-field"
+        />
+      </div>
+    </div>
+
     <!-- Submit Button -->
-    <!-- <button type="submit" class="custom-button">Submit</button> -->
+    <button type="submit" class="custom-button">Update</button>
   </form>
 </div>

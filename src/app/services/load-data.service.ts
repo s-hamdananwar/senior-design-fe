@@ -28,7 +28,7 @@ export class LoadDataService {
 
     // Set isLoading to true before making the request
     this.isLoading = true;
-    
+
     const url = `${this.apiUrl}/${sanitizedName}/${status}`;
     return this.http.get<any[]>(url).pipe(
       finalize(() => {
