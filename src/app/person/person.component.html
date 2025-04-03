@@ -93,12 +93,20 @@
     <div class="form-row-2">
       <div class="form-group">
         <label for="address1"> Address <span class="required">*</span> </label>
-        <input
-          id="address1"
-          type="text"
-          formControlName="address1"
-          class="custom-input req-field"
-        />
+        <div class="input-container">
+          <input
+            id="address1"
+            type="text"
+            formControlName="address1"
+            placeholder="123 Street"
+            class="custom-input req-field"
+            (blur)="personForm.controls['address1'].valid" 
+          />
+          <span *ngIf="personForm.controls['address1'].invalid && personForm.controls['address1'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Enter a valid street number and street name for Address</span>
+          </span>
+        </div>
       </div>
       <div class="form-group">
         <label for="address2"> Secondary Address </label>
@@ -106,6 +114,7 @@
           id="address1"
           type="text"
           formControlName="address2"
+          placeholder="Apt #xyz"
           class="custom-input req-field"
         />
       </div>
@@ -205,29 +214,45 @@
         <label for="homePhone">
           Home Phone <span class="required">*</span>
         </label>
-        <input
-          id="homePhone"
-          type="text"
-          formControlName="homePhone"
-          class="custom-input req-field"
-        />
-        <!-- <div
-          class="error-message"
-          *ngIf="personForm.get('email')?.errors?.validateDataError"
-        >
-          {{ personForm.get("email")?.errors?.validateDataError }}
-        </div> -->
+        <div class="input-container">
+          <input
+            id="homePhone"
+            type="text"
+            formControlName="homePhone"
+            class="custom-input req-field"
+            placeholder="xxx-xxx-xxxx"
+            (blur)="personForm.controls['homePhone'].valid" 
+          />
+          <!-- <div
+            class="error-message"
+            *ngIf="personForm.get('email')?.errors?.validateDataError"
+          >
+            {{ personForm.get("email")?.errors?.validateDataError }}
+          </div> -->
+          <span *ngIf="personForm.controls['homePhone'].invalid && personForm.controls['homePhone'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Valid format is xxx-xxx-xxxx</span>
+          </span>
+        </div>
       </div>
       <div class="form-group">
         <label for="cellPhone">
           Cell Phone <span class="required">*</span>
         </label>
-        <input
-          id="cellPhone"
-          type="text"
-          formControlName="cellPhone"
-          class="custom-input req-field"
-        />
+        <div class="input-container">
+          <input
+            id="cellPhone"
+            type="text"
+            formControlName="cellPhone"
+            class="custom-input req-field"
+            placeholder="xxx-xxx-xxxx"
+            (blur)="personForm.controls['cellPhone'].valid" 
+          />
+          <span *ngIf="personForm.controls['cellPhone'].invalid && personForm.controls['cellPhone'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Valid format is xxx-xxx-xxxx</span>
+          </span>
+        </div>
       </div>
       <div class="form-group">
         <label for="email">Email <span class="required">*</span> </label>
@@ -236,7 +261,13 @@
           type="text"
           formControlName="email"
           class="custom-input req-field"
+          placeholder="example@example.com"
+          (blur)="personForm.controls['email'].valid" 
         />
+        <span *ngIf="personForm.controls['email'].invalid && personForm.controls['email'].touched" class="tooltip-container">
+          <mat-icon class="red-icon">help_outline</mat-icon>
+          <span class="custom-tooltip">Valid format is example@example.com</span>
+        </span>
       </div>
       <div class="form-group">
         <label for="email2"> Secondary Email </label>
@@ -244,6 +275,7 @@
           id="email2"
           type="text"
           formControlName="email2"
+          placeholder="example@example.com"
           class="custom-input req-field"
         />
       </div>
@@ -281,15 +313,17 @@
         />
       </div>
     </div>
-    <div class="form-row-3">
+        <div class="form-row-3">
       <div class="form-group">
         <label for="status"> Status <span class="required">*</span> </label>
-        <input
+        <select
           id="status"
-          type="text"
           formControlName="status"
           class="custom-input req-field"
-        />
+        >
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="birthDate">
@@ -304,23 +338,38 @@
       </div>
       <div class="form-group">
         <label for="suffix">Suffix <span class="required">*</span></label>
-        <input
-          id="suffix"
-          type="text"
-          formControlName="suffix"
-          class="custom-input req-field"
-        />
+        <div class="input-container">
+          <input
+            id="suffix"
+            type="text"
+            formControlName="suffix"
+            class="custom-input req-field"
+            placeholder="MD, SR., etc."
+            (blur)="personForm.controls['suffix'].valid" 
+          />
+          <span *ngIf="personForm.controls['suffix'].invalid && personForm.controls['suffix'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Enter a valid Suffix (e.g. MD)</span>
+          </span>
+        </div>
       </div>
     </div>
     <div class="form-row-4">
       <div class="form-group">
         <label for="gradeLevel"> Grade <span class="required">*</span> </label>
-        <input
-          id="gradeLevel"
-          type="text"
-          formControlName="gradeLevel"
-          class="custom-input req-field"
-        />
+        <div class="input-container">
+          <input
+            id="gradeLevel"
+            type="text"
+            formControlName="gradeLevel"
+            class="custom-input req-field"    
+            (blur)="personForm.controls['gradeLevel'].valid" 
+          />
+          <span *ngIf="personForm.controls['gradeLevel'].invalid && personForm.controls['gradeLevel'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Enter a grade (e.g. 2, 3, etc.)</span>
+          </span>
+        </div>
       </div>
       <div class="form-group">
         <label for="classOf"> Class Of </label>
@@ -353,32 +402,46 @@
     <div class="form-row-3">
       <div class="form-group">
         <label for="ssn"> SSN <span class="required">*</span> </label>
-        <input
-          id="ssn"
-          type="text"
-          formControlName="ssn"
-          class="custom-input req-field"
-        />
+        <div class="input-container">
+          <input
+            id="ssn"
+            type="text"
+            formControlName="ssn"
+            class="custom-input req-field"
+            placeholder="xxx-xxx-xxxx"
+            (blur)="personForm.controls['ssn'].valid"      
+          />
+          <span *ngIf="personForm.controls['ssn'].invalid && personForm.controls['ssn'].touched" class="tooltip-container">
+            <mat-icon class="red-icon">help_outline</mat-icon>
+            <span class="custom-tooltip">Enter a valid SSN (xxx-xxx-xxxx)</span>
+          </span>
+        </div>
       </div>
       <div class="form-group">
         <label for="ethnicity">
           Ethnicity <span class="required">*</span>
         </label>
-        <input
-          id="ethnicity"
-          type="text"
-          formControlName="ethnicity"
-          class="custom-input req-field"
-        />
+        <select id="ethnicity" formControlName="ethnicity" class="custom-input req-field">
+          <option value="" disabled selected>Select your ethnicity</option>
+          <option value="Hispanic/Latino">Hispanic/Latino</option>
+          <option value="Non-Hispanic/Latino">Non-Hispanic/Latino</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="primarylanguage">Primary Language </label>
-        <input
+        <label for="primarylanguage">Primary Language</label>
+        <select
           id="primarylanguage"
-          type="text"
           formControlName="primarylanguage"
           class="custom-input req-field"
-        />
+        >
+          <option value="english">English</option>
+          <option value="spanish">Spanish</option>
+          <option value="chinese">Chinese</option>
+          <option value="french">French</option>
+          <option value="german">German</option>
+          <option value="vietnamese">Vietnamese</option>
+          <option value="other">Other</option>
+        </select>
       </div>
     </div>
 

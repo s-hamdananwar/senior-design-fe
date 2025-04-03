@@ -100,3 +100,61 @@
 .custom-button:hover {
   background-color: orange;
 }
+
+/* Custom tooltip container */
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tooltip-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.red-icon {
+  color: red;
+}
+
+/* Tooltip styling */
+.custom-tooltip {
+  visibility: hidden;
+  background-color: rgb(12, 12, 12);
+  color: #fdfbfb;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 5;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+/* Tooltip arrow */
+.custom-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgb(12, 12, 12) transparent transparent transparent;
+}
+
+.tooltip-container:hover .custom-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Adjust arrow for right-aligned tooltips */
+.tooltip-container.right-edge .custom-tooltip::after {
+  left: auto;
+  right: 10px;
+  transform: translateX(0);
+}

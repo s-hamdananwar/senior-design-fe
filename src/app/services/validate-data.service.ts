@@ -97,15 +97,12 @@ export function validateData(
       : "Please enter a valid SSN (ex: 123-45-6789)";
   } else if (dataSetName === "ParentBlankRelationships") {
     const relationships = [
-      "Father",
-      "Mother",
-      "Grandfather",
-      "Grandmother",
-      "Brother",
-      "Sister",
+      "Grandparent",
+      "Aunt",
+      "Uncle",
       "Guardian",
-      "Stepfather",
-      "Stepmother",
+      "Sister",
+      "Brother",
       "Other",
     ];
     return relationships.includes(testString)

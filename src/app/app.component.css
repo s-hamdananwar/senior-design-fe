@@ -19,3 +19,13 @@
 app-navbar {
   flex: 1; /* Takes up the remaining space in the container */
 }
+
+.navbar-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ccc;
+}
+
+app-navbar {
+  flex: 1; /* Takes up the remaining space in the container */
+}

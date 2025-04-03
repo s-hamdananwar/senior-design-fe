@@ -13,13 +13,15 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import { Subscription } from "rxjs";
 import { validateData } from "../services/validate-data.service"; // adjust the path if needed
 import { validateDateData } from "../services/validate-date.service"; // adjust the path if needed
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-person",
   templateUrl: "./person.component.html",
   styleUrls: ["./person.component.css"],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatTooltipModule, MatIconModule],
 })
 export class PersonComponent implements OnInit {
   personForm!: FormGroup;

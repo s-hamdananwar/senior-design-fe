@@ -131,5 +131,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   clearFilter() {
     this.selectedCategory = null;
     this.selectedStatus = null;
+    this.filterNavItems();
   }
 }

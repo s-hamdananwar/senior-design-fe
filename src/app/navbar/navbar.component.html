@@ -23,38 +23,39 @@
   </div>
 
   <div
-    style="margin-top: 20px; gap: 16px"
+    class="filter-container"
     *ngIf="selectedView === 'personView'"
   >
-    <!-- <mat-form-field appearance="outline">
-      <select matNativeControl required [(ngModel)]="selectedCategory">
-        <option [value]="null" disabled selected>Category</option>
-        <option value="student">Student</option>
-        <option value="parent">Parent</option>
-        <option value="staff">Staff</option>
-      </select>
-    </mat-form-field> -->
-
-    <mat-form-field appearance="outline">
-      <select
-        matNativeControl
-        required
-        [(ngModel)]="selectedStatus"
-        (ngModelChange)="filterNavItems()"
-      >
-        <option [value]="null" disabled selected>Status</option>
-        <option value="valid">Valid</option>
-        <option value="invalid">Invalid</option>
-      </select>
-    </mat-form-field>
+    <div class="selector-container">
+      <mat-form-field appearance="outline">
+        <select matNativeControl required [(ngModel)]="selectedCategory">
+          <option [value]="null" disabled selected>Category</option>
+          <option value="student">Student</option>
+          <option value="parent">Parent</option>
+          <option value="staff">Staff</option>
+        </select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <select
+          matNativeControl
+          required
+          [(ngModel)]="selectedStatus"
+          (ngModelChange)="filterNavItems()"
+        >
+          <option [value]="null" disabled selected>Status</option>
+          <option value="valid">Valid</option>
+          <option value="invalid">Invalid</option>
+        </select>
+      </mat-form-field>
+    </div>
 
     <button
-      mat-mini-fab
-      color="warn"
+      class="clear-filter-btn"
       (click)="clearFilter()"
       aria-label="Clear Filter"
     >
-      <mat-icon>clear</mat-icon>
+     Clear filters
     </button>
   </div>
 
@@ -77,12 +78,12 @@
     <button mat-mini-fab aria-label="Settings button">
       <mat-icon>settings</mat-icon>
     </button>
-    <div class="toggle-container">
+    <!-- <div class="toggle-container">
       <span class="toggle-label">Progress</span>
       <label class="custom-toggle">
         <input type="checkbox" />
         <span class="slider"></span>
       </label>
-    </div>
+    </div> -->
   </div>
 </nav>
