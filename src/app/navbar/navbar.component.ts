@@ -33,15 +33,23 @@ import { MatInputModule } from "@angular/material/input";
   ],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  @Input() selectedView: string = "";
+
   showInput = false;
   inputValue = "";
   navItems: NavItem[] = [];
   filteredNavItems: NavItem[] = [];
   private routerSub!: Subscription;
+  selectedCategory: string | null = null;
+  selectedStatus: string | null = null;
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
+    if (!this.selectedCategory) {
+      this.selectedCategory = "student";
+      this.onCategoryChange();
+    }
     this.selectedStatus = null;
     this.fetchData();
     this.routerSub = this.router.events
@@ -77,16 +85,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (!this.showInput) {
       this.inputValue = "";
       setTimeout(() => {
-        this.filteredNavItems = [...this.navItems]; // Ensure reset is detected
+        this.filteredNavItems = [...this.navItems];
       }, 0);
     }
   }
 
-  // Filter both by search input and selectedStatus.
   filterNavItems(): void {
     let filtered = [...this.navItems];
 
-    // Filter by search input if provided.
     const query = this.inputValue.toLowerCase().trim();
     if (query !== "") {
       filtered = filtered.filter((item) =>
@@ -94,7 +100,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       );
     }
 
-    // Filter by selectedStatus if it is set.
     if (this.selectedStatus === "valid") {
       filtered = filtered.filter((item) => (item as any).isValid === true);
     } else if (this.selectedStatus === "invalid") {
@@ -104,7 +109,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.filteredNavItems = filtered;
   }
 
-  // This method is still used by your search input.
   filterTables() {
     this.filterNavItems();
   }
@@ -123,11 +127,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Input() selectedView: string = "";
-
-  selectedCategory: string | null = null;
-  selectedStatus: string | null = null;
-
+  onCategoryChange(): void {
+    const url = `/person/${this.selectedCategory}/1`;
+    this.router.navigateByUrl(url);
+  }
   clearFilter() {
     this.selectedCategory = null;
     this.selectedStatus = null;

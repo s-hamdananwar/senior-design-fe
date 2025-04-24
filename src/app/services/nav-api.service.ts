@@ -34,9 +34,15 @@ export class ApiService {
 
     let apiUrl: string;
 
-    if (urlToCheck.startsWith("/person/")) {
+    if (urlToCheck.startsWith("/person/student/")) {
       apiUrl = `${environment.apiUrl}/General/GetStudentNames`;
       console.log("PERSON");
+    } else if (urlToCheck.startsWith("/person/parent/")) {
+      apiUrl = `${environment.apiUrl}/General/GetParentNames`;
+      console.log("Parent");
+    } else if (urlToCheck.startsWith("/person/staff/")) {
+      apiUrl = `${environment.apiUrl}/General/GetStaffNames`;
+      console.log("Staff");
     } else {
       // Fallback or default endpoint
       apiUrl = `${environment.apiUrl}/General/GetTableNames`;

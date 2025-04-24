@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { LoadDataService } from "../../services/load-data.service";
 import { FormsModule } from "@angular/forms";
 import { validateData } from "../../services/validate-data.service";
-import { Subject } from "rxjs";
+import { Subject, firstValueFrom } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatButtonModule } from "@angular/material/button";
@@ -150,24 +150,29 @@ export class TableComponent implements OnInit {
     this.rowUpdateSubject.next(rowIndex);
   }
 
-  processRowUpdate(rowIndex: number) {
+  async processRowUpdate(rowIndex: number) {
     const rowValidation = this.validationState[rowIndex];
     if (rowValidation) {
       const isRowValid = Object.values(rowValidation).every(
         (val) => val === true
       );
       if (isRowValid) {
-        const rowData = this.data[rowIndex];
-        const id = rowData.id;
-        rowData.isValid = 1;
-        this.dataService.updateData(this.dataSetName, id, rowData).subscribe(
-          (response) => {
-            console.log("Data updated successfully", response);
-          },
-          (error) => {
-            console.error("Error updating data", error);
-          }
-        );
+        const rowData = this.data[rowIndex].targetField;
+        console.log(rowData);
+        const id = this.data[rowIndex].id;
+        console.log(id);
+        console.log(this.dataSetName);
+
+        try {
+          const stringData =
+            typeof rowData === "string" ? rowData : JSON.stringify(rowData);
+          const response = await firstValueFrom(
+            this.dataService.updateData(this.dataSetName, id, stringData)
+          );
+          console.log("Data updated successfully", response);
+        } catch (error) {
+          console.error("Error updating data", error);
+        }
       }
     }
   }

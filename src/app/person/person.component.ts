@@ -13,7 +13,7 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import { Subscription } from "rxjs";
 import { validateData } from "../services/validate-data.service"; // adjust the path if needed
 import { validateDateData } from "../services/validate-date.service"; // adjust the path if needed
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatIconModule } from "@angular/material/icon";
 
 @Component({
@@ -21,12 +21,19 @@ import { MatIconModule } from "@angular/material/icon";
   templateUrl: "./person.component.html",
   styleUrls: ["./person.component.css"],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatTooltipModule, MatIconModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatTooltipModule,
+    MatIconModule,
+  ],
 })
 export class PersonComponent implements OnInit {
   personForm!: FormGroup;
   routeSub!: Subscription;
   Id!: number;
+  submissionMessage: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +43,7 @@ export class PersonComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+
     this.routeSub = this.route.paramMap.subscribe((params) => {
       const idParam = params.get("studentId");
       if (idParam) {
@@ -45,6 +53,8 @@ export class PersonComponent implements OnInit {
         this.loadStudentService.loadData(this.Id).subscribe({
           next: (data: any) => {
             this.personForm.patchValue(data);
+            this.submissionMessage = "";
+
             console.log(data);
             this.personForm.markAllAsTouched();
           },
@@ -168,10 +178,7 @@ export class PersonComponent implements OnInit {
       ],
       email: ["", [Validators.required, this.validateDataValidator("email")]],
       email2: ["", this.validateDataValidator("email2")], // need to make it not required but still validate and show errors
-      ethnicity: [
-        "",
-        [Validators.required, this.validateDataValidator("ethnicity")],
-      ],
+      ethnicity: ["", [this.validateDataValidator("ethnicity")]],
       locker1: ["", [this.validateDataValidator("locker1")]],
       combination1: ["", [this.validateDataValidator("combination1")]], //added
       locker2: [""],
@@ -265,7 +272,10 @@ export class PersonComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log("Student updated successfully:", response);
-          // Optionally, perform further actions here (e.g., navigate away or show a success message)
+          const isValidated = this.personForm.get("isValid")?.value;
+          this.submissionMessage = isValidated
+            ? "You have successfully updated and validated this person."
+            : "You have updated this user's info but they are not fully validated.";
         },
         error: (err) => {
           console.error("Error updating student data:", err);

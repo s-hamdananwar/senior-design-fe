@@ -5,6 +5,9 @@ export function validateData(
   if (
     dataSetName === "MissingOrInvalidEmails" ||
     dataSetName === "ParentDuplicatedEmails" ||
+    dataSetName === "ParentInvalidEmail" ||
+    dataSetName === "StudentInvalidEmail" ||
+    dataSetName === "StaffInvalidEmail" ||
     dataSetName === "email" ||
     dataSetName === "email2"
   ) {
@@ -15,8 +18,12 @@ export function validateData(
   } else if (
     dataSetName === "InvalidPhoneNumbers" ||
     dataSetName === "ParentMissingPhoneNumber" ||
+    dataSetName === "ParentInvalidCellPhone" ||
+    dataSetName === "StaffInvalidCellPhone" ||
+    dataSetName === "StudentInvalidCellPhone" ||
     dataSetName === "homePhone" ||
     dataSetName === "cellPhone" ||
+    dataSetName === "workPhone" ||
     dataSetName === "drPhone" ||
     dataSetName === "dentistPhone"
   ) {
@@ -24,25 +31,43 @@ export function validateData(
     return phoneRegex.test(testString)
       ? true
       : "Please enter a valid phone number (ex: 402-444-4444)";
-  } else if (dataSetName === "ParentMissingSalutations") {
+  } else if (
+    dataSetName === "ParentMissingSalutations" ||
+    dataSetName === "ParentInvalidSalutation"
+  ) {
     const salutationRegex = /^(Mr\.|Ms\.|Mrs\.|Dr\.|Prof\.)$/;
     return salutationRegex.test(testString)
       ? true
       : "Please enter a valid salutation (ex: Mr., Mrs., Ms.)";
   } else if (
     dataSetName === "InvalidAddress" ||
+    dataSetName === "ParentInvalidAddress1" ||
+    dataSetName === "StaffInvalidAddress" ||
+    dataSetName === "StudentInvalidAddress1" ||
     dataSetName === "ParentNoFamilyName" ||
+    dataSetName === "ParentInvalidFamilyName" ||
+    dataSetName === "address" ||
     dataSetName === "address1" ||
     dataSetName === "address2" ||
     dataSetName === "schoolCode" ||
     dataSetName === "ethnicity" ||
+    dataSetName === "citizenship" ||
     dataSetName === "schoolId" ||
     dataSetName === "previousSchoolAddress" ||
     dataSetName === "drAddress" ||
     dataSetName === "suffix" ||
     dataSetName === "country" ||
+    dataSetName === "occupation" ||
+    dataSetName === "StaffInvalidOccupation" ||
+    dataSetName === "department" ||
+    dataSetName === "company" ||
     dataSetName === "city" ||
-    dataSetName === "dentistAddress" ||
+    dataSetName === "bachelorDegree" ||
+    dataSetName === "bachelorSchool" ||
+    dataSetName === "bachelorYear" ||
+    dataSetName === "bachelorDegree2" ||
+    dataSetName === "bachelorSchool2" ||
+    dataSetName === "bachelorYear2" ||
     dataSetName === "hospitalAddress"
   ) {
     return typeof testString === "string"
@@ -56,6 +81,8 @@ export function validateData(
     dataSetName === "primarylanguage" ||
     dataSetName === "lastName" ||
     dataSetName === "nickName" ||
+    dataSetName === "relationship" ||
+    dataSetName === "maritalStatus" ||
     dataSetName === "userName"
   ) {
     const nameRegex = /^([A-Za-z]+)$/;
@@ -78,6 +105,10 @@ export function validateData(
     dataSetName === "StudentMissingEnrollDates" ||
     dataSetName === "enrollDate" ||
     dataSetName === "withdrawDate" ||
+    dataSetName === "ParentInvalidBirthDate" ||
+    dataSetName === "StaffInvalidBirthDate" ||
+    dataSetName === "StudentInvalidBirthDate" ||
+    dataSetName === "StudentInvalidEnrollDate" ||
     dataSetName === "graduationDate" ||
     dataSetName === "birthDate" ||
     dataSetName === "baptismDate" ||
@@ -90,12 +121,21 @@ export function validateData(
     return dateRegex.test(testString)
       ? true
       : "Please enter a valid date in the format MM/DD/YYYY";
-  } else if (dataSetName === "InvalidSSN" || dataSetName === "ssn") {
+  } else if (
+    dataSetName === "InvalidSSN" ||
+    dataSetName === "ssn" ||
+    dataSetName === "StaffInvalidSSN" ||
+    dataSetName === "StudentInvalidSSN" ||
+    dataSetName === "ParentInvalidSSN"
+  ) {
     const ssnRegex = /^\d{3}-\d{2}-\d{4}$/;
     return ssnRegex.test(testString)
       ? true
       : "Please enter a valid SSN (ex: 123-45-6789)";
-  } else if (dataSetName === "ParentBlankRelationships") {
+  } else if (
+    dataSetName === "ParentBlankRelationships" ||
+    dataSetName === "ParentInvalidRelationship"
+  ) {
     const relationships = [
       "Grandparent",
       "Aunt",
@@ -110,6 +150,7 @@ export function validateData(
       : "Please enter a valid relationship (ex: Father, Mother, Guardian)";
   } else if (
     dataSetName === "ParentStateAbbrvNotValid" ||
+    dataSetName === "ParentInvalidState" ||
     dataSetName === "state" ||
     dataSetName === "baptismState" ||
     dataSetName === "communionState" ||
@@ -189,6 +230,7 @@ export function validateData(
       : "Please enter a common occupation (ex: Teacher, Principal)";
   } else if (
     dataSetName === "StudentMissingGender" ||
+    dataSetName === "StudentInvalidGender" ||
     dataSetName === "gender"
   ) {
     const genders = ["male", "female", "other"];

@@ -110,10 +110,6 @@ nav ul::-webkit-scrollbar-thumb:hover {
   color: gray;
 }
 
-[_nghost-ng-c857682180] .transition-input input {
-  margin-top: 0 !important;
-}
-
 .mat-mdc-mini-fab:not(.mdc-fab--extended) {
   margin-left: 10px;
   margin-top: 13px;
@@ -136,43 +132,12 @@ nav ul::-webkit-scrollbar-thumb:hover {
 }
 
 .mat-mdc-form-field {
-  margin-top: 0 !important;
   width: 120px !important;
   margin-right: 16px !important;
   color: #665ea9 !important;
 }
-
-.filter-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-start;
-}
-
-.select-container {
-  display: flex;
-  gap: 12px; /* Adjusts spacing between the two dropdowns */
-}
-
-.select-container element.style {
-  height: 40px !important;
-}
-
-.clear-filter-btn {
-  background: transparent;
-  border: none;
-  color: blue;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 5px;
-  text-align: left;
-  transition: color 0.3s ease;
-  margin: 0 !important;
-  margin-bottom: 10px !important;
-}
-
-/* Hover Effect */
-.clear-filter-btn:hover {
-  color: #9a0007;
-  text-decoration: underline;
+.person-selectors {
+  width: 275px;
+  align-items: center;
+  margin-top: 20px;
 }

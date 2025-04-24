@@ -6,7 +6,7 @@ import { environment } from "../../environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class LoadStudentService {
+export class LoadStaffService {
   private apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
@@ -16,14 +16,12 @@ export class LoadStudentService {
       return throwError(() => new Error("id cannot be null or undefined"));
     }
     // might need to drop $status depending on how backend is set up.
-    const url = `${this.apiUrl}/Student/${id}`;
-    console.log("URL IM TRYING TO CALL");
-    console.log(url);
+    const url = `${this.apiUrl}/Staff/${id}`;
     return this.http.get<any[]>(url);
   }
 
   updateData(id: number, data: any): Observable<any> {
-    const url = `${this.apiUrl}/Student/${id}`;
+    const url = `${this.apiUrl}/Staff/${id}`;
     return this.http.put<any>(url, data);
   }
 }

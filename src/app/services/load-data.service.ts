@@ -29,7 +29,8 @@ export class LoadDataService {
     // Set isLoading to true before making the request
     this.isLoading = true;
 
-    const url = `${this.apiUrl}/${sanitizedName}/${status}`;
+    const url = `${this.apiUrl}/${sanitizedName}`;
+    console.log("url", url);
     return this.http.get<any[]>(url).pipe(
       finalize(() => {
         this.isLoading = false; // Set isLoading to false once data is loaded
@@ -50,6 +51,14 @@ export class LoadDataService {
     const sanitizedName = dataSetName.replace(/s$/, "");
 
     const url = `${this.apiUrl}/${sanitizedName}/${id}`;
-    return this.http.put<any>(url, data);
+
+    // Send the data as a JSON string value
+    const requestData = JSON.stringify(data);
+
+    return this.http.put<any>(url, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }

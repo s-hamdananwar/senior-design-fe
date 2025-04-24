@@ -16,7 +16,6 @@ export function validateDateData(testInput: any): true | string {
   }
 
   const testString = String(testInput);
-  console.log("Final test string:", testString);
   const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/;
   return dateRegex.test(testString)
     ? true

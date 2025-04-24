@@ -1,32 +1,18 @@
 <div class="table-container">
-  <div *ngIf="data.length === 0" class="error-message" style="text-indent: 10px; margin-bottom: 5px; margin-top: 5px; font-weight: bold;">
+  <div
+    *ngIf="data.length === 0"
+    class="error-message"
+    style="
+      text-indent: 10px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      font-weight: bold;
+    "
+  >
     No data available to load.
   </div>
 
- 
-    <section class="toggle-container">
-      <div class="custom-toggle-group">
-        <!-- Valid Data Button -->
-        <button
-          class="custom-toggle-button"
-          type="button"
-          [class.active]="selectedStatus === 1"
-          (click)="onToggleChange(1)"
-        >
-          Valid
-        </button>
-        <!-- Invalid Data Button -->
-        <button
-          class="custom-toggle-button"
-          type="button"
-          [class.active]="selectedStatus === 0"
-          (click)="onToggleChange(0)"
-        >
-          Invalid
-        </button>
-      </div>
-    </section>
-    <ng-container *ngIf="data.length > 0">
+  <ng-container *ngIf="data.length > 0">
     <!-- Table -->
     <table class="styled-table">
       <thead>
@@ -55,7 +41,8 @@
                   class="fixed-input"
                   [ngClass]="{
                     'invalid-input':
-                      validationState[rowIndex] && !validationState[rowIndex][key]
+                      validationState[rowIndex] &&
+                      !validationState[rowIndex][key]
                   }"
                 />
                 <span
