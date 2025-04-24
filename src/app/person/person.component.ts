@@ -41,20 +41,25 @@ export class PersonComponent implements OnInit {
     private loadStudentService: LoadStudentService
   ) {}
 
+  initialFormValue: any;
+  unsavedChanges = false;
+
   ngOnInit(): void {
     this.initializeForm();
-
+  
     this.routeSub = this.route.paramMap.subscribe((params) => {
       const idParam = params.get("studentId");
       if (idParam) {
         this.Id = +idParam;
         this.personForm.reset();
         this.personForm.patchValue({ Id: this.Id });
+  
         this.loadStudentService.loadData(this.Id).subscribe({
           next: (data: any) => {
             this.personForm.patchValue(data);
-            this.submissionMessage = "";
-
+  
+            this.initialFormValue = this.personForm.getRawValue();
+  
             console.log(data);
             this.personForm.markAllAsTouched();
           },
@@ -64,7 +69,19 @@ export class PersonComponent implements OnInit {
         });
       }
     });
-  }
+  
+    this.personForm.valueChanges.subscribe(() => {
+      this.unsavedChanges = this.personForm.dirty;
+    });    
+  }  
+  
+  canDeactivate(): boolean {
+    console.log("Unsaved changes?", this.unsavedChanges); 
+    if (this.unsavedChanges) {
+      return confirm('You have unsaved changes. Are you sure you want to leave?');
+    }
+    return true;
+  }  
 
   validateDataValidator(dataSetName: string) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -248,7 +265,8 @@ export class PersonComponent implements OnInit {
   }
   onSubmit(): void {
     this.personForm.markAllAsTouched();
-
+  
+    // Validate required fields manually (for isValid logic)
     let allRequiredValid = true;
     Object.keys(this.personForm.controls).forEach((key) => {
       const control = this.personForm.get(key);
@@ -258,29 +276,31 @@ export class PersonComponent implements OnInit {
         }
       }
     });
-
-    if (allRequiredValid) {
-      this.personForm.get("isValid")?.setValue(true);
-    } else {
-      this.personForm.get("isValid")?.setValue(false);
-    }
+  
+    this.personForm.get("isValid")?.setValue(allRequiredValid);
+  
+    // Proceed to update via service
+    this.loadStudentService.updateData(this.Id, this.personForm.value).subscribe({
+      next: (response) => {
+        console.log("Student updated successfully:", response);
+  
+        const isValidated = this.personForm.get("isValid")?.value;
+        this.submissionMessage = isValidated
+          ? "You have successfully updated and validated this person."
+          : "You have updated this user's info but they are not fully validated.";
+  
+        this.initialFormValue = this.personForm.getRawValue();
+        this.unsavedChanges = false;
+  
+        // Optionally auto-clear the message after 3s
+        setTimeout(() => (this.submissionMessage = ''), 3000);
+      },
+      error: (err) => {
+        console.error("Error updating student data:", err);
+        this.submissionMessage = "Failed to update person. Please try again.";
+      },
+    });
+  
     console.log("Form submitted:", this.personForm.value);
-
-    // Use the studentId already set in ngOnInit
-    this.loadStudentService
-      .updateData(this.Id, this.personForm.value)
-      .subscribe({
-        next: (response) => {
-          console.log("Student updated successfully:", response);
-          const isValidated = this.personForm.get("isValid")?.value;
-          this.submissionMessage = isValidated
-            ? "You have successfully updated and validated this person."
-            : "You have updated this user's info but they are not fully validated.";
-        },
-        error: (err) => {
-          console.error("Error updating student data:", err);
-          // Optionally, handle the error (e.g., show an error message to the user)
-        },
-      });
   }
 }

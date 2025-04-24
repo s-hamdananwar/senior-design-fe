@@ -22,6 +22,8 @@ import { validateDateData } from "../../services/validate-date.service"; // adju
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class StaffComponent implements OnInit {
+  initialFormValue: any;
+  unsavedChanges = false;
   personForm!: FormGroup;
   routeSub!: Subscription;
   Id!: number;
@@ -35,27 +37,35 @@ export class StaffComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+  
     this.routeSub = this.route.paramMap.subscribe((params) => {
       const idParam = params.get("staffId");
       if (idParam) {
         this.Id = +idParam;
         this.personForm.reset();
         this.personForm.patchValue({ Id: this.Id });
+  
         this.loadStaffService.loadData(this.Id).subscribe({
           next: (data: any) => {
             this.personForm.patchValue(data);
+            this.initialFormValue = this.personForm.getRawValue(); // ✅ after patch
             this.submissionMessage = "";
-
+  
             console.log(data);
             this.personForm.markAllAsTouched();
           },
           error: (err) => {
-            console.error("Error loading student data:", err);
+            console.error("Error loading staff data:", err);
           },
         });
       }
     });
+  
+    this.personForm.valueChanges.subscribe(() => {
+      this.unsavedChanges = this.personForm.dirty;
+    });
   }
+  
 
   validateDataValidator(dataSetName: string) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -229,7 +239,7 @@ export class StaffComponent implements OnInit {
 
   onSubmit(): void {
     this.personForm.markAllAsTouched();
-
+  
     let allRequiredValid = true;
     Object.keys(this.personForm.controls).forEach((key) => {
       const control = this.personForm.get(key);
@@ -239,27 +249,37 @@ export class StaffComponent implements OnInit {
         }
       }
     });
-
-    if (allRequiredValid) {
-      this.personForm.get("isValid")?.setValue(true);
-    } else {
-      this.personForm.get("isValid")?.setValue(false);
-    }
-    console.log("Form submitted:", this.personForm.value);
-
-    // Use the studentId already set in ngOnInit
+  
+    this.personForm.get("isValid")?.setValue(allRequiredValid);
+  
     this.loadStaffService.updateData(this.Id, this.personForm.value).subscribe({
       next: (response) => {
         console.log("Staff updated successfully:", response);
         const isValidated = this.personForm.get("isValid")?.value;
+  
         this.submissionMessage = isValidated
-          ? "You have successfully updated and validated this parent."
-          : "You have updated this parent's info but they are not fully validated.";
+          ? "You have successfully updated and validated this staff member."
+          : "You have updated this staff's info but they are not fully validated.";
+  
+        // Mark form as saved
+        this.initialFormValue = this.personForm.getRawValue();
+        this.unsavedChanges = false;
+  
+        setTimeout(() => (this.submissionMessage = ""), 3000);
       },
       error: (err) => {
-        console.error("Error updating student data:", err);
-        // Optionally, handle the error (e.g., show an error message to the user)
+        console.error("Error updating staff data:", err);
+        this.submissionMessage = "Failed to update staff. Please try again.";
       },
     });
+  
+    console.log("Form submitted:", this.personForm.value);
+  }
+  
+  canDeactivate(): boolean {
+    if (this.unsavedChanges) {
+      return confirm('You have unsaved changes. Are you sure you want to leave?');
+    }
+    return true;
   }
 }
